@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Sarthak Thakur</title><link>https://sarthak247.github.io/</link><description>Recent content on Sarthak Thakur</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><lastBuildDate>Mon, 04 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://sarthak247.github.io/index.xml" rel="self" type="application/rss+xml"/><item><title>Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages</title><link>https://sarthak247.github.io/p/hello-world/</link><pubDate>Mon, 04 Sep 2023 00:00:00 +0000</pubDate><guid>https://sarthak247.github.io/p/hello-world/</guid><description>&lt;img src="https://sarthak247.github.io/p/hello-world/cover.jpg" alt="Featured image of post Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages" />&lt;h2 id="introduction">Introduction&lt;/h2>
+&lt;p>In a world dominated by social media platforms and curated content, the idea of having a personal space on the internet has always fascinated me. A place where I can express my thoughts, share my experiences, and have complete control over what goes in and what stays out. That&amp;rsquo;s why I decided to embark on a journey to create my own personal blog. This blog is my &amp;ldquo;Hello World&amp;rdquo; moment in the blogosphere, a simple yet profound beginning.&lt;/p>
+&lt;h2 id="motivation">Motivation&lt;/h2>
+&lt;p>The motivation behind creating a personal blog stemmed from a desire for creative freedom and self-expression. Here are some reasons that fueled my motivation:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;ol>
+&lt;li>&lt;strong>Freedom of Expression:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Unlike social media platforms with their character limits and algorithms, a personal blog gives me the freedom to express myself without constraints. I can write long-form content, delve into topics that interest me deeply, and share my unique perspective wihtout the worry of being banned or restricted.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;ol start="2">
+&lt;li>&lt;strong>Ownership and Control:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>With a personal blog, I have complete ownership and control over my content. I don&amp;rsquo;t have to worry about my content being buried in a newsfeed or subject to changing platform policies. It&amp;rsquo;s my digital space, and I make the rules.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;ol start="3">
+&lt;li>&lt;strong>Learning and Growth:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>Building and maintaining a blog is a learning experience. From setting up the technical infrastructure to crafting compelling content, I saw this as an opportunity for personal growth and development.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;ol start="4">
+&lt;li>&lt;strong>Maintaining My Journal:&lt;/strong>&lt;/li>
+&lt;/ol>
+&lt;ul>
+&lt;li>As I explore my way in this LLM world, I get to know a lot of new things on a daily basis and maintaining a blog is like my online catalog for everything I learn so that I can come back and visit it sometime later.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ul>
+&lt;h2 id="how-to">How-To&lt;/h2>
+&lt;p>To begin with, When I decided to embark on the journey of creating my own personal blog, one of the first decisions I had to make was choosing the right static site generator. After some research and contemplation, I found myself torn between two popular options: &lt;code>Hugo&lt;/code> and &lt;code>Jekyll&lt;/code>. In this blog post, I&amp;rsquo;ll share my thought process, the pros and cons I considered, and ultimately why I chose Hugo as my platform for self-expression.&lt;/p>
+&lt;h3 id="pros-and-cons-of-hugo">Pros and Cons of Hugo&lt;/h3>
+&lt;h4 id="pros">Pros:&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Speed and Performance:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Hugo is renowned for its blazing-fast build times. It&amp;rsquo;s built with Go, a statically typed, compiled language, which translates into remarkable speed when generating your website. This means quicker updates and reduced wait times.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Flexibility and Customization:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Hugo provides a high degree of flexibility in terms of theme selection and customization. With a wide variety of themes available, one can easily find one that aligns with their vision and branding. Customizing themes and layouts is also straightforward, thanks to Hugo&amp;rsquo;s modular structure.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Large and Active Community:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>The Hugo community is vibrant and welcoming. One will find extensive documentation, forums, and a wealth of online resources to help one troubleshoot issues and enhance their blog. The active development community ensures that Hugo stays up to date with the latest web technologies.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h4 id="cons">Cons:&lt;/h4>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Steep Learning Curve:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Hugo&amp;rsquo;s speed and efficiency come at the cost of complexity. For beginners, the learning curve can be steep, especially if they&amp;rsquo;re new to Markdown, Git, and the command line interface.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Less Built-in Features:&lt;/strong>&lt;/p>
+&lt;ul>
+&lt;li>Compared to some other static site generators, Hugo offers fewer built-in features and plugins. While this can be an advantage for simplicity, it may require additional work if you want to add complex functionality to your blog.&lt;/li>
+&lt;/ul>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="the-decision-why-hugo">The Decision: Why Hugo?&lt;/h3>
+&lt;p>After carefully weighing the pros and cons, I decided to go with Hugo for several reasons:&lt;/p>
+&lt;ol>
+&lt;li>
+&lt;p>&lt;strong>Speed Matters:&lt;/strong> Hugo&amp;rsquo;s exceptional speed was a game-changer for me. I wanted the ability to publish content quickly without waiting for the site to rebuild, and Hugo&amp;rsquo;s near-instantaneous build times offered exactly that.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Community Support:&lt;/strong> The active Hugo community was reassuring. I knew that if I encountered any issues or needed help with customization, there was a supportive community to turn to.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Customization Potential:&lt;/strong> Hugo&amp;rsquo;s flexibility and ease of theme customization aligned perfectly with my vision for a personalized blog. I wanted a blog that not only showcased my content but also reflected my unique style and personality.&lt;/p>
+&lt;/li>
+&lt;/ol>
+&lt;h3 id="setting-up-hugo-a-step-by-step-guide">Setting Up Hugo: A Step-by-Step Guide&lt;/h3>
+&lt;h4 id="1-installing-go-and-hugo-extended">1. Installing Go and Hugo Extended&lt;/h4>
+&lt;p>Before diving into Hugo, I ensured I had the necessary prerequisites in place:&lt;/p>
+&lt;ul>
+&lt;li>
+&lt;p>&lt;strong>Install Go:&lt;/strong> Hugo is built with Go, so you&amp;rsquo;ll need to &lt;a class="link" href="https://golang.org/doc/install" target="_blank" rel="noopener"
+>install Go&lt;/a> if you haven&amp;rsquo;t already.&lt;/p>
+&lt;/li>
+&lt;li>
+&lt;p>&lt;strong>Install Hugo Extended:&lt;/strong> Hugo Extended is the version of Hugo that includes additional features like SCSS processing. You can &lt;a class="link" href="https://github.com/gohugoio/hugo/releases" target="_blank" rel="noopener"
+>download it here&lt;/a>.&lt;/p>
+&lt;/li>
+&lt;/ul>
+&lt;h4 id="2-selecting-a-theme">2. Selecting a Theme&lt;/h4>
+&lt;p>Choosing the right theme for your blog is crucial. Hugo offers a wide selection of themes, both in its official theme gallery and on platforms like GitHub. Spend some time exploring themes that resonate with your style and content. For my purposes I chose &lt;a class="link" href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener"
+>Jimmy&amp;rsquo;s Stack theme&lt;/a> as I liked it&amp;rsquo;s design and it is exactly what I needed from my blog.&lt;/p>
+&lt;h4 id="3-cloning-and-customizing-the-theme">3. Cloning and Customizing the Theme&lt;/h4>
+&lt;p>Once I had found the perfect theme, I had clone its repository. Stack&amp;rsquo;s README was more than sufficient to get me started with this. After cloning and setting up, I started customizing the theme by modifying templates, colors, fonts, and adding my own branding elements along with my own social links and avatar.&lt;/p>
+&lt;h4 id="4-pushing-to-github">4. Pushing to GitHub&lt;/h4>
+&lt;p>After making the changes I needed, I pushed the site to GitHub. I had expected it to work out of the box just as one might expect with Jekyll but in case of Hugo it didn&amp;rsquo;t go as expected. I had to make some changes which I have described in the next step.&lt;/p>
+&lt;h4 id="deploying-on-github-pages">Deploying on GitHub Pages&lt;/h4>
+&lt;p>After going through Hugo&amp;rsquo;s documentation for GitHub pages, I got to know that in order to deploy my site automatically with GitHub pages I need to setup actions and provide it with a custom YAML which was given in Hugo&amp;rsquo;s documentation &lt;a class="link" href="https://gohugo.io/hosting-and-deployment/hosting-on-github/" target="_blank" rel="noopener"
+>here&lt;/a>. After going through the given steps and mentioning the branch which I would be using for deployment, I was able to setup an automatic routine for deployment. Now, each time I make a push to this repo, it will be automatically built and deployed. 😁&lt;/p>
+&lt;h2 id="conclusion">Conclusion&lt;/h2>
+&lt;p>With these steps, I was well on my way to creating a personal blog that would be a canvas for my thoughts, experiences, and creative expressions. My journey to create a personal blog with Hugo and GitHub Pages was a fulfilling experience. It allowed me to exercise my creativity, establish a digital presence, and embrace the freedom of self-expression. The decision to choose Hugo, with its speed, flexibility, and vibrant community, felt like the right one for my journey of self-expression and creativity. As I embark on this blogging adventure, I look forward to sharing my thoughts, insights, and experiences with the world while maintaining complete control over my digital space. This &amp;ldquo;Hello World&amp;rdquo; blog is just the beginning of an exciting journey in the blogosphere and a starting point for maintaining my jorunal about LLM and Generative AI research. Cheers ✌️&lt;/p>
+&lt;blockquote>
+&lt;p>Photo by &lt;a class="link" href="https://unsplash.com/@pawel_czerwinski" target="_blank" rel="noopener"
+>Pawel Czerwinski&lt;/a> on &lt;a class="link" href="https://unsplash.com/" target="_blank" rel="noopener"
+>Unsplash&lt;/a>&lt;/p>
+&lt;/blockquote></description></item><item><title>Archives</title><link>https://sarthak247.github.io/archives/</link><pubDate>Sun, 06 Mar 2022 00:00:00 +0000</pubDate><guid>https://sarthak247.github.io/archives/</guid><description/></item><item><title>Links</title><link>https://sarthak247.github.io/links/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sarthak247.github.io/links/</guid><description>&lt;p>To use this feature, add &lt;code>links&lt;/code> section to frontmatter.&lt;/p>
+&lt;p>This page&amp;rsquo;s frontmatter:&lt;/p>
+&lt;div class="highlight">&lt;div class="chroma">
+&lt;table class="lntable">&lt;tr>&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code>&lt;span class="lnt">1
+&lt;/span>&lt;span class="lnt">2
+&lt;/span>&lt;span class="lnt">3
+&lt;/span>&lt;span class="lnt">4
+&lt;/span>&lt;span class="lnt">5
+&lt;/span>&lt;span class="lnt">6
+&lt;/span>&lt;span class="lnt">7
+&lt;/span>&lt;span class="lnt">8
+&lt;/span>&lt;span class="lnt">9
+&lt;/span>&lt;/code>&lt;/pre>&lt;/td>
+&lt;td class="lntd">
+&lt;pre tabindex="0" class="chroma">&lt;code class="language-yaml" data-lang="yaml">&lt;span class="line">&lt;span class="cl">&lt;span class="nt">links&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">GitHub is the world&amp;#39;s largest software development platform.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.com&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>- &lt;span class="nt">title&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">description&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">TypeScript is a typed superset of JavaScript that compiles to plain JavaScript.&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">website&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">https://www.typescriptlang.org&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;span class="line">&lt;span class="cl">&lt;span class="w"> &lt;/span>&lt;span class="nt">image&lt;/span>&lt;span class="p">:&lt;/span>&lt;span class="w"> &lt;/span>&lt;span class="l">ts-logo-128.jpg&lt;/span>&lt;span class="w">
+&lt;/span>&lt;/span>&lt;/span>&lt;/code>&lt;/pre>&lt;/td>&lt;/tr>&lt;/table>
+&lt;/div>
+&lt;/div>&lt;p>&lt;code>image&lt;/code> field accepts both local and external images.&lt;/p></description></item><item><title>Search</title><link>https://sarthak247.github.io/search/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://sarthak247.github.io/search/</guid><description/></item></channel></rss>

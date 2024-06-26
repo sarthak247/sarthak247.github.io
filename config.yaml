@@ -29,11 +29,11 @@ Menus:
       title: Blog posts
       url: /blogs
       weight: 1
-    - identifier: gallery
-      name: Gallery
-      title: Blog posts
-      url: /gallery
-      weight: 2
+    # - identifier: gallery
+    #   name: Gallery
+    #   title: Blog posts
+    #   url: /gallery
+    #   weight: 2
     #Dropdown menu
     # - identifier: dropdown
     #   title: Example dropdown menu
@@ -56,7 +56,7 @@ params:
   title: "Sarthak Thakur"
   description: Portfolio Website
   # staticPath: ""  # The path to serve the static files from
-  favicon: "/fav.png"
+  favicon: "./favicon.png"
 
   # Whether to serve bootstrap css and js files from CDN or not. Can be set to true, "css" or "js" to choose between
   # serving both, only the css, or only the js files through the CDN. Any other value will make so that CDN is not used.
@@ -69,7 +69,7 @@ params:
   # cloudinary_cloud_name: "YOUR_CLOUD_NAME"
 
   # Whether to add mathjax support on all pages. Alternatively, you can opt-in per page by adding `mathjax: true` in the frontmatter.
-  mathjax: false
+  mathjax: true
 
   # Whether the fade animations on the home page will be enabled
   animate: true
@@ -119,7 +119,7 @@ params:
       disableExperience: false
       disableEducation: false
       disableProjects: false
-      disableAchievements: false
+      disableAchievements: true
       disableContact: false
 
   # Hero
@@ -143,8 +143,10 @@ params:
       fontAwesomeIcons:
         - icon: fab fa-github
           url: https://www.github.com/sarthak247
+        - icon: fab fa-linkedin
+          url: https://www.linkedin.com/in/sarthak247/
         - icon: fab fa-x-twitter
-          url: https://example.com
+          url: https://x.com/sarthak2407
           #Fixit
         - icon: fab fa-google-scholar
           url: https://scholar.google.com/citations?user=i3h23AkAAAAJ&hl=en
@@ -182,58 +184,67 @@ params:
       - job: "Research Assistant"
         company: "CREST"
         companyUrl: "https://crest-centre.net/"
-        date: "Sep 2023 - May 2024"
+        date: "Sept 2023 - May 2024"
         featuredLink:
           enable: false
           name: "View the project"
           url: "https://example.com"
-        content: "Researched and optimized LLMs for automated program repair at CREST, employing advanced methodologies for efficient model implementation."
+        content: |
+          - Conducted comprehensive literature reviews to remain updated on the latest advancements in LLMs, automated program repair, and associated optimization techniques.
+          - Fine-tuned Large Language Models (LLMs) such as Codellama, PLBART, Refact, CodeGen, and CodeT5 for Automated Program Repair (APR) tasks, employing techniques including PEFT (Parameter Efficient Fine-Tuning), LoRA (Low-Rank Adaptation), and int-8 optimization.
+          - Implemented and optimized LLMs using state-of-the-art methodologies, ensuring compatibility with resource-constrained environments through various optimization methods like Gradient Checkpointing, int-8 optimization, etc.
+          - Utilized SLURM to manage and distribute computing tasks across multiple GPUs, optimizing model training and experimentation efficiency.
+          - Played a key role in securing additional funding for the project, leveraging my expertise and contributions to demonstrate its potential and value to stakeholders.
+
+        # content: "Researched and optimized LLMs for automated program repair at CREST, employing advanced methodologies for efficient model implementation."
 
       - job: "Machine Learning Intern"
         company: "AIML"
         companyUrl: "https://www.adelaide.edu.au/aiml/"
-        date: "Sep 2022 - Dec 2022"
+        date: "Sept 2022 - Dec 2022"
         featuredLink:
           enable: false
           url: "https://example.com"
         info:
           enable: true
           content: I worked as an ML intern for around 4 months at Australian Institute of Machine Learning (AIML).
-        content: Focused on real-time neural style transfer on videos, optimizing temporal consistency and accelerating inference using Deep Learning techniques and frameworks like TensorRT and PyTorch-JIT.
+        content: |
+          - Collaborated closely under the guidance of supervisors to develop expertise in Real-Time Neural Style Transfer on Videos.
+          - Successfully navigated significant challenges, including conducting extensive literature reviews, implementing state-of-the-art methods, and enhancing them to ensure temporal consistency across consecutive frames in live camera feed videos during style transfer.
+          - Acquired comprehensive knowledge of research areas such as Deep Learning Optimization Techniques, including Knowledge Distillation and Quantization. Utilized libraries such as TensorRT and Pytorch-JIT to accelerate inference time while performing style transfer.
+          - Investigated the impact of Automatic Mixed Precision on the training and inference speeds and GPU utilization of PyTorch models for different class of GPUs
 
-      - job: "Junior Software Developer"
-        company: "Apple"
-        companyUrl: "https://example.com"
-        date: "Jan 2020 - Aug 2020"
+        # content: Focused on real-time neural style transfer on videos, optimizing temporal consistency and accelerating inference using Deep Learning techniques and frameworks like TensorRT and PyTorch-JIT.
+
+      - job: "Django and Machine Learning Developer"
+        company: "Algods"
+        companyUrl: "#"
+        date: "June 2021 - Sept 2021"
         info:
           enable: false
         featuredLink:
-          enable: true
+          enable: false
           url: "https://example.com"
         content: |
-          I am currently working as a software developer at [example org.](https://example.com) in San Francisco, CA. I am currently working on a project that will be used to help people find the best way to get around the city.
+          - Collaborated closely within an 8-member team to develop a Customer Relationship Management (CRM) system for a logistics enterprise.
+          - Engaged in a variety of daily responsibilities, such as designing and developing the database, managing the migration of changes, creating and testing REST APIs, and facilitating the handover of these components to the frontend team.
+          - Additionally, contributed to user clustering efforts and the prediction of purchase order patterns among users, leveraging existing data provided by the logistics company.
+          - Played a role in designing a forecasting algorithm to enhance understanding of seasonal logistics bookings by analyzing historical data furnished by the company.
 
-          - Lead backend developer for a product.
-          - Created a frontend design for a product.
 
-      - job: "UI/UX Designer"
-        company: "Netflix"
-        companyUrl: "https://example.com"
-        date: "June 2017 - Nov 2019"
+      - job: "Machine Learning Researcher"
+        company: "DIC"
+        companyUrl: "https://dicpu.in/"
+        date: "June 2019 - June 2021"
         featuredLink:
-          enable: true
+          enable: false
           url: "https://example.com"
         content: |
-          I am currently working as a software developer at [example org.](https://example.com) in San Francisco, CA. I am currently working on a project that will be used to help people find the best way to get around the city.
-
-          - Lead backend developer for a product.
-          - Created a frontend design for a product.
-
-      - job: "Product Designer"
-        company: "Google"
-        companyUrl: "https://example.com"
-        date: "Feb 2016 - Mar 2017"
-        content: "I am currently working as a software developer at [example org.](https://example.com) in San Francisco, CA. I am currently working on a project that will be used to help people find the best way to get around the city."
+          - Engaged in daily activities that encompassed researching established Computer Vision architectures and exploring avenues for their enhancement.
+          - Conducted research focused on image classification and segmentation tasks within the medical domain, specifically addressing areas such as Brain Tumor Segmentation and Glaucoma Classification.
+          - Furthermore, I developed a test GUI using PyQt5 for our glaucoma classification task, enabling input image analysis and delivering conclusive judgments, along with heat maps showcasing the diagnosis.
+          - Assumed a mentorship role during summer and winter internship periods, providing guidance and support to junior interns within the organization.
+          - Undertook a notable final project involving the utilization of Generative Adversarial Networks for facial inpainting, aimed at reconstructing partially damaged faces.
 
   # Education
   education:
@@ -245,7 +256,7 @@ params:
         school:
           name: "University of Adelaide, Adelaide"
           url: "https://www.adelaide.edu.au/"
-        date: "2022 - 2024"
+        date: "May 2022 - May 2024"
         GPA: "6.06/7"
         content: |-
           While pursuing my Masters at the UoA, my primary focus was to further my understanding and expertise in GenAI like Diffusion Models and NLP for generative applications along with managing my coursework. I was also an academic tutor for the following courses:
@@ -266,7 +277,7 @@ params:
         school:
           name: "University Institute of Engineering & Technology, Panjab University"
           url: "https://uiet.puchd.ac.in/"
-        date: "2017 - 2021"
+        date: "June 2017 - June 2021"
         GPA: "7.69/10"
         content: |-
           In conjunction with my academic coursework, I actively engaged in projects involving CNNs and GANs. I contributed to the development of tools aimed at facilitating early diagnosis, while also providing mentorship to fellow students in their respective projects.
@@ -279,12 +290,12 @@ params:
 
         featuredLink:
           enable: true
-          name: "My academic record"
+          name: "Academic Transcript"
           url: "https://example.com" #Fixit
 
   # Achievements
   achievements:
-    enable: true
+    enable: false
     # title: "Custom Name"
     items:
       - title: Google kickstart runner
@@ -377,10 +388,9 @@ params:
       disableFeaturedImage: false
     socialNetworks:
       github: https://github.com/sarthak247
-      linkedin: https://linkedin.com
-      twitter: https://twitter.com
-      instagram: https://instagram.com
-      facebook: https://facebook.com
+      linkedin: https://linkedin.com/in/sarthak247/
+      twitter: https://x.com/sarthak2407
+      # instagram: https://instagram.com
 
   # List pages like blogs and posts
   listPages:

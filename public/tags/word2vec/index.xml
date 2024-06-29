@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Word2Vec on Sarthak Thakur</title>
+    <link>http://localhost:1313/tags/word2vec/</link>
+    <description>Recent content in Word2Vec on Sarthak Thakur</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 05 Sep 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/word2vec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Unraveling the Power of Word Vectorization: From Text to Numbers</title>
+      <link>http://localhost:1313/blogs/word-embeddings/</link>
+      <pubDate>Tue, 05 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/word-embeddings/</guid>
+      <description>Introduction In the realm of Natural Language Processing (NLP), one of the key challenges is to bridge the gap between the textual world of words and the numerical world of computers. We know that computers only understand in form of numbers (0s and 1s to be precise). So how do we make sense of human language words like maybe &amp;ldquo;cat&amp;rdquo; and &amp;ldquo;car&amp;rdquo; using algorithms and data structures? This is where word vectorization comes into play.</description>
+    </item>
+  </channel>
+</rss>

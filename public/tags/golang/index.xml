@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Golang on Sarthak Thakur</title>
+    <link>http://localhost:1313/tags/golang/</link>
+    <description>Recent content in Golang on Sarthak Thakur</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 04 Sep 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/golang/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages</title>
+      <link>http://localhost:1313/blogs/hello-world/hello-world/</link>
+      <pubDate>Mon, 04 Sep 2023 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/hello-world/hello-world/</guid>
+      <description>Introduction In a world dominated by social media platforms and curated content, the idea of having a personal space on the internet has always fascinated me. A place where I can express my thoughts, share my experiences, and have complete control over what goes in and what stays out. That&amp;rsquo;s why I decided to embark on a journey to create my own personal blog. This blog is my &amp;ldquo;Hello World&amp;rdquo; moment in the blogosphere, a simple yet profound beginning.</description>
+    </item>
+  </channel>
+</rss>

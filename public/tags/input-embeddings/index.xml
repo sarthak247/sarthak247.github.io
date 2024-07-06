@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Input Embeddings on Sarthak Thakur</title>
-    <link>http://localhost:37417/tags/input-embeddings/</link>
+    <link>http://localhost:35807/tags/input-embeddings/</link>
     <description>Recent content in Input Embeddings on Sarthak Thakur</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 03 Jul 2024 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://localhost:37417/tags/input-embeddings/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:35807/tags/input-embeddings/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Attention Is All You Need - From where it all started</title>
-      <link>http://localhost:37417/blogs/attention-is-all-you-need/</link>
+      <link>http://localhost:35807/blogs/attention-is-all-you-need/</link>
       <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:37417/blogs/attention-is-all-you-need/</guid>
+      <guid>http://localhost:35807/blogs/attention-is-all-you-need/</guid>
       <description>Introduction In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from arXiv, the volume of papers tagged under LLM averages nine submissions daily. To comprehend these advancements fully, it is essential to delve into the seminal work that laid the groundwork for many contemporary developments in Natural Language Processing (NLP): the paper entitled &amp;ldquo;Attention Is All You Need&amp;rdquo;. This pivotal research introduced Transformer models to the NLP domain, which have since become fundamental frameworks underpinning a myriad of advanced language models such as GPT, Llama, Claude, among others.</description>
     </item>
   </channel>

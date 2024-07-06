@@ -2,11 +2,11 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages on Sarthak Thakur</title>
-    <link>http://localhost:37417/blogs/hello-world/</link>
+    <link>http://localhost:35807/blogs/hello-world/</link>
     <description>Recent content in Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages on Sarthak Thakur</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate></lastBuildDate>
-    <atom:link href="http://localhost:37417/blogs/hello-world/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:35807/blogs/hello-world/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

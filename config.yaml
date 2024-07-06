@@ -345,8 +345,8 @@ params:
         links:
           - icon: fab fa-github
             url: https://github.com/sarthak247/Attention-Is-All-You-Need
-          - icon: fas fa-blog # Fixit
-            url: # Fixit
+          - icon: fas fa-blog 
+            url: /blogs/attention-is-all-you-need
 
       - title: 
         content: A web app to convert image to pdf, png to jpg, png to jpg and png to webp without database using django.

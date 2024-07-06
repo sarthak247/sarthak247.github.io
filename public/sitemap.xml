@@ -2,79 +2,79 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://localhost:37417/blogs/attention-is-all-you-need/</loc>
+    <loc>http://localhost:35807/blogs/attention-is-all-you-need/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/blogs/word-embeddings/</loc>
+    <loc>http://localhost:35807/blogs/word-embeddings/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/blogs/hello-world/</loc>
+    <loc>http://localhost:35807/blogs/hello-world/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/blogs/</loc>
+    <loc>http://localhost:35807/blogs/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/</loc>
+    <loc>http://localhost:35807/categories/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/decoder/</loc>
+    <loc>http://localhost:35807/tags/decoder/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/embeddings/</loc>
+    <loc>http://localhost:35807/tags/embeddings/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/encoder/</loc>
+    <loc>http://localhost:35807/tags/encoder/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/input-embeddings/</loc>
+    <loc>http://localhost:35807/tags/input-embeddings/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/natural-language-processing/</loc>
+    <loc>http://localhost:35807/categories/natural-language-processing/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/paper-explanation/</loc>
+    <loc>http://localhost:35807/categories/paper-explanation/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/positional-embeddings/</loc>
+    <loc>http://localhost:35807/tags/positional-embeddings/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/</loc>
+    <loc>http://localhost:35807/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/</loc>
+    <loc>http://localhost:35807/tags/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/transformers/</loc>
+    <loc>http://localhost:35807/tags/transformers/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/transformers/</loc>
+    <loc>http://localhost:35807/categories/transformers/</loc>
     <lastmod>2024-07-03T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/countvectorizer/</loc>
+    <loc>http://localhost:35807/tags/countvectorizer/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/tf-idf/</loc>
+    <loc>http://localhost:35807/tags/tf-idf/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/vectorization/</loc>
+    <loc>http://localhost:35807/tags/vectorization/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/word-embeddings/</loc>
+    <loc>http://localhost:35807/categories/word-embeddings/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/word2vec/</loc>
+    <loc>http://localhost:35807/tags/word2vec/</loc>
     <lastmod>2023-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/github-pages/</loc>
+    <loc>http://localhost:35807/tags/github-pages/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/golang/</loc>
+    <loc>http://localhost:35807/tags/golang/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/tags/hugo/</loc>
+    <loc>http://localhost:35807/tags/hugo/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:37417/categories/website/</loc>
+    <loc>http://localhost:35807/categories/website/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url>
 </urlset>

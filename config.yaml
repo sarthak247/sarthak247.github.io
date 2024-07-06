@@ -19,9 +19,20 @@ enableRobotsTXT: true
 
 markup:
   goldmark:
-    renderer:
-      unsafe: true
-
+    extensions:
+      passthrough:
+        delimiters:
+          block:
+          - - \[
+            - \]
+          - - $$
+            - $$
+          inline:
+          - - \(
+            - \)
+        enable: true
+params:
+  math: true
 Menus:
   main:
     - identifier: blog
@@ -322,21 +333,22 @@ params:
     items:
       - title: Attention Is All You Need
         content: Paper implementation of Attention Is All You Need inspired by Umar Jamil. The model currently supports English to Italian and English to French language translations.
-        image: /images/projects/attention.png
-        featured:
-          name: Demo # Fixit
-          link: https://hugo-profile.netlify.app
+        image: /projects/attention.png
+        # featured:
+        #   name: Demo # Fixit
+        #   link: https://hugo-profile.netlify.app
         badges:
           - "LLM"
           - "Code Follow Along"
           - "Language Translation"
+          - "Transformers"
         links:
           - icon: fab fa-github
-            url: # Fixit
+            url: https://github.com/sarthak247/Attention-Is-All-You-Need
           - icon: fas fa-blog # Fixit
             url: # Fixit
 
-      - title: Image Converter
+      - title: 
         content: A web app to convert image to pdf, png to jpg, png to jpg and png to webp without database using django.
         image: /images/projects/converter.jpg
         featured:

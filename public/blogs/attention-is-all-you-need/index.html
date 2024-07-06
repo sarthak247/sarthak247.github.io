@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+<html>
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=37417&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=./favicon.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+  
+
+
+<meta property="og:url" content="http://localhost:37417/blogs/attention-is-all-you-need/">
+  <meta property="og:site_name" content="Sarthak Thakur">
+  <meta property="og:title" content="Attention Is All You Need - From where it all started">
+  <meta property="og:description" content="Explanation of Attention Is All You Need paper along with code">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blogs">
+    <meta property="article:published_time" content="2024-07-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2024-07-03T00:00:00+00:00">
+    <meta property="article:tag" content="Embeddings">
+    <meta property="article:tag" content="Transformers">
+    <meta property="article:tag" content="Encoder">
+    <meta property="article:tag" content="Decoder">
+    <meta property="article:tag" content="Input Embeddings">
+    <meta property="article:tag" content="Positional Embeddings">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Attention Is All You Need - From where it all started">
+  <meta name="twitter:description" content="Explanation of Attention Is All You Need paper along with code">
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+<style>
+    :root {
+        --text-color: #343a40;
+        --text-secondary-color: #6c757d;
+        --background-color: #eaedf0;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #007bff;
+        --secondary-color: #f8f9fa;
+
+         
+        --text-color-dark: #e4e6eb;
+        --text-secondary-color-dark: #b0b3b8;
+        --background-color-dark: #18191a;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #ffffff;
+        --secondary-color-dark: #212529;
+    }
+    body {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        height: 0px;
+        width: 8px;
+        background-color: var(--background-color);
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 1rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background: #b0b0b0;
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+
+
+<meta name="description" content="Explanation of Attention Is All You Need paper along with code">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-6/all-6.4.2.js"></script>
+
+
+  
+  
+
+  <title>
+Attention Is All You Need - From where it all started | Sarthak Thakur
+
+  </title>
+</head>
+
+<body class="light">
+  
+  
+<script>
+    let localStorageValue = localStorage.getItem("pref-theme");
+    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    switch (localStorageValue) {
+        case "dark":
+            document.body.classList.add('dark');
+            break;
+        case "light":
+            document.body.classList.remove('dark');
+            break;
+        default:
+            if (mediaQuery) {
+                document.body.classList.add('dark');
+            }
+            break;
+    }
+</script>
+
+
+
+
+<script>
+    var prevScrollPos = window.pageYOffset;
+    window.addEventListener("scroll", function showHeaderOnScroll() {
+        let profileHeaderElem = document.getElementById("profileHeader");
+        let currentScrollPos = window.pageYOffset;
+        let resetHeaderStyle = false;
+        let showNavBarOnScrollUp =  true ;
+        let showNavBar = showNavBarOnScrollUp ? prevScrollPos > currentScrollPos : currentScrollPos > 0;
+        if (showNavBar) {
+            profileHeaderElem.classList.add("showHeaderOnTop");
+        } else {
+            resetHeaderStyle = true;
+        }
+        if(currentScrollPos === 0) {
+            resetHeaderStyle = true;
+        }
+        if(resetHeaderStyle) {
+            profileHeaderElem.classList.remove("showHeaderOnTop");
+        }
+        prevScrollPos = currentScrollPos;
+    });
+</script>
+
+
+
+<header id="profileHeader">
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="./favicon.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                Sarthak Thakur
+                
+            </a>
+
+            
+                <div>
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                        aria-label="Search" oninput="searchOnChange(event)">
+                </div>
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+                        <li class="nav-item navbar-text d-block d-md-none">
+                            <div class="nav-link">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                            </div>
+                        </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Experience
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#projects"
+                            aria-label="projects">
+                            Projects
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#contact"
+                            aria-label="contact">
+                            Contact
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        
+                        <div class="text-center">
+                            <button id="theme-toggle">
+                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Attention Is All You Need - From where it all started</h1>
+            <div class="text-center">
+              
+              Jul 3, 2024
+
+              
+              <span id="readingTime">
+                min read
+              </span>
+              
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid mx-auto d-block" src="/projects/attention.png" alt="Attention Is All You Need - From where it all started">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h2 id="introduction">Introduction</h2>
+<p>In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from <code>arXiv</code>, the volume of papers tagged under <code>LLM</code> averages nine submissions daily. To comprehend these advancements fully, it is essential to delve into the seminal work that laid the groundwork for many contemporary developments in Natural Language Processing (NLP): the paper entitled <a href="https://arxiv.org/abs/1706.03762">&ldquo;Attention Is All You Need&rdquo;</a>. This pivotal research introduced Transformer models to the NLP domain, which have since become fundamental frameworks underpinning a myriad of advanced language models such as GPT, Llama, Claude, among others. Furthermore, the paper introduced innovative concepts like <code>Multi-Head attention</code> and <code>Positional Encoding</code>, which serve as cornerstone elements in the construction of modern AI architectures.</p>
+<p>According to the structure proposed for this blog, the initial focus will be on evaluating the limitations inherent in current methodologies of that time, such as <code>Recurrent Neural Networks (RNNs)</code>. Subsequently, attention will shift towards introducing the <code>Transformer</code> architecture. This discussion will meticulously dissect both the <code>Encoder</code> and <code>Decoder</code> components of the Transformer architecture, elucidating the specific functionalities of each constituent part that collectively contribute to its robust framework.</p>
+<h2 id="rnns-and-their-problems">RNNs and their problems</h2>
+<p><img src="RNN.png" alt="RNN working"></p>
+<p>To commence, we will first explore the operational principles of Recurrent Neural Networks (RNNs). While this discussion does not aim to provide an exhaustive tutorial on RNNs, a basic overview with a simplified diagram will be presented to illustrate their fundamental workings and inherent challenges.</p>
+<p>RNNs are designed to sequentially map input <em><strong>x</strong></em> to output <em><strong>y</strong></em>, either in a recurrent or sequence-to-sequence manner. Their operation can be summarized as follows:</p>
+<ul>
+<li>They are employed to establish a mapping from <em><strong>x</strong></em> to <em><strong>y</strong></em>.</li>
+<li>For a sequence comprising <strong>n</strong> tokens, the computation unfolds across <strong>n</strong> sequential steps.</li>
+<li>The process initiates with an initial or zeroth stage, where the first input token, denoted as \(x_1\), is fed into the initial RNN cell alongside the preceding hidden state (typically denoted as state zero in our case for first token), resulting in the production of the first output token \(y_1\).</li>
+<li>This iterative process continues: \(h_1\) and \(x_2\) become inputs to the second cell, yielding \(y_2\) and \(h_2\), and so forth, until all tokens have been processed.</li>
+<li>Consequently, each RNN cell operates with two inputs: \(x_i\) (current token) and \(h_{i-1}\) (hidden state from the previous computation).</li>
+</ul>
+<h3 id="problems">Problems</h3>
+<ol>
+<li><strong>Slow computation for long sequences</strong>:
+<ul>
+<li>Since it is a sequential model, and each word depends on the words before it, the computation can become really slow in case of longer text sequences.</li>
+</ul>
+</li>
+<li><strong>Vanishing and Exploding Gradients</strong>:
+<ul>
+<li>The longer the chain becomes, the more will be the chances of vanishing/exploding gradients (cause of chain rule) which is not desirable as it slows down in training and also in some cases might not be able to be represented by the system (consider int32, float32, etc)</li>
+</ul>
+</li>
+<li><strong>Difficulty in accessing information from long ago</strong>
+<ul>
+<li>The first few tokens will have very less or almost negligible impact on the last tokens (loss of context). This is undersirable as can be seen in the case of RNNs that their attention span or context window is much smaller and they suffer with longer text sequences.</li>
+</ul>
+</li>
+</ol>
+<h2 id="transformer-for-the-rescue">Transformer for the rescue</h2>
+<p>Addressing the challenges highlighted by RNNs, particularly their limitations with longer sequences, Vishwani (<a href="https://arxiv.org/search/cs?searchtype=author&amp;query=Vaswani,+A">https://arxiv.org/search/cs?searchtype=author&amp;query=Vaswani,+A</a>) and his team introduced the Transformer architecture in 2017, which effectively mitigated these issues. Unlike RNNs, Transformers streamline computation by executing a single forward pass for processing an input sentence, eliminating the need for multiple sequential passes. Furthermore, Transformers leverage a broader context window and circumvent context loss through sophisticated mechanisms such as positional encoding and attention.</p>
+<p>The Transformer architecture comprises two pivotal components: the <code>encoder</code> and the <code>decoder</code>. This blog will commence by exploring the functionalities of the encoder, followed by an in-depth examination of the decoder. Ultimately, we will synthesize these components to elucidate how they synergistically contribute to the comprehensive Transformer model.</p>
+<h2 id="encoder">Encoder</h2>
+<p><img src="IE.png" alt="Input Embeddings"></p>
+<p>To understand how an encoder works, let us first consider an input sentence, <code>Your cat is a lovely cat</code>.</p>
+<h3 id="step-1-input-embeddings">Step 1: Input Embeddings</h3>
+<ol>
+<li>The initial step involves generating <code>Input Embeddings</code> for the given sentence.</li>
+<li>This process begins with <code>tokenization</code>, where the sentence is segmented into individual words.</li>
+<li>Subsequently, each token is assigned a unique numerical identifier corresponding to its position within the vocabulary, as depicted in the accompanying figure.
+<ul>
+<li>Notably, the input ID for &ldquo;cat&rdquo; remains consistent across its occurrences in the sentence.</li>
+</ul>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Original Sentence Token</th>
+<th>Input ID (vocabulary position)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your</td>
+<td>105</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>6587</td>
+</tr>
+<tr>
+<td>is</td>
+<td>5475</td>
+</tr>
+<tr>
+<td>a</td>
+<td>3578</td>
+</tr>
+<tr>
+<td>lovely</td>
+<td>65</td>
+</tr>
+<tr>
+<td>cat</td>
+<td>6578</td>
+</tr>
+</tbody>
+</table>
+<ol start="4">
+<li>These input IDs are then transformed into embeddings of a fixed size, typically 512 in dimension.
+<ul>
+<li>Importantly, these <code>embeddings</code> serve as trainable parameters and are subject to adjustment during training to optimize the model&rsquo;s loss function.</li>
+<li>Furthermore, we define \(d_{model} = 512\), representing the dimensionality of each word&rsquo;s embedding vector.</li>
+</ul>
+</li>
+</ol>
+<h3 id="step-2-positional-embeddings">Step 2. Positional Embeddings</h3>
+<ol>
+<li>Once we obtain the <code>input embeddings</code>, our objective is for each word to encapsulate its <code>spatial encoding</code> within the sentence—essentially ensuring that each word is aware of its positional information.</li>
+<li>We aim for the model to perceive words appearing close together as <code>proximate</code> and those appearing farther apart as <code>distant</code>.</li>
+<li>The <code>positional encoding</code> should therefore embody a pattern that the model can assimilate. <strong>(But how?)</strong></li>
+</ol>
+<p><img src="PE.png" alt="Positional Embeddings"></p>
+<ol start="4">
+<li>Referring to the figure above, we observe that PE (positional encoding) augments the input embedding of each word, thus forming our encoder input.
+<ul>
+<li>Here, PE is a fixed-size vector of 512 dimensions, computed once and utilized consistently across all sentences during both training and inference.</li>
+<li>This identical PE can be applied across different sentences, serving purely as a positional marker and hence is neither learned nor unique to individual sentences.</li>
+</ul>
+</li>
+</ol>
+<p><img src="PE_calculation.png" alt="How is Positional Embeddings calculated?"></p>
+<ol start="5">
+<li>
+<p><strong>But how is positional encoding computed?</strong></p>
+<ul>
+<li>In their paper, the authors employ a formula involving \(sin - cos\) functions to generate alternating values across dimensions, resulting in vectors of length \(d_{model}\).</li>
+<li>In the paper, the authors use a \(sin - cos\) formula for alternating words and then create vectors of length \(d_{model}\).</li>
+<li><strong>But why restrict to trigonometric functions? Why not consider alternatives?</strong>
+<ul>
+<li>Trigonometric functions like sine and cosine inherently depict a pattern that the model can recognize as <code>continuous</code>, facilitating the model&rsquo;s ability to discern relative positions. The regularity of these functions in their plots suggests a predictable pattern, which leads us to hypothesize that the model will perceive and leverage these patterns effectively.</li>
+</ul>
+</li>
+</ul>
+<p><img src="trigno.png" alt="Trignometric Functions"></p>
+</li>
+</ol>
+<h3 id="step-3-self-attention-with-a-single-head">Step 3. Self attention (with a single head)</h3>
+<ol>
+<li>Self-attention has been a concept predating the seminal attention paper. The authors introduced the concept of <code>multi-head attention</code>, which we will delve into later. However, to grasp that, it is essential first to comprehend how <code>single-head attention</code> operates.</li>
+<li>Self-attention enables the model to <strong>establish relationships between words.</strong>
+<ul>
+<li>Input Embeddings: Capture the semantic meaning of each word.</li>
+<li>Positional Encoding: Provide positional information within the sentence.</li>
+<li>Self Attention: <strong>Facilitate relationships between these words.</strong></li>
+</ul>
+</li>
+</ol>
+<p>Therefore, it is through self-attention that words are able to <code>effectively capture contextual nuances and their interdependencies with other words.</code></p>
+<p>\[\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_{model}}}\right) V\]</p>
+<p>In the provided formula, Q, K, and V represent the input sentence embeddings (after positional encoding), each of size ((6, 512)\), where \(\text{seq_len} = 6\) and \(d_{model} = 512\).</p>
+<p><img src="self_attention.png" alt="Self-Attention Head"></p>
+<p><strong>Each row in this resultant attention matrix not only encapsulates the meaning (via embeddings) and positional information (via PE) but also signifies the interactions and relationships between individual words.</strong></p>
+<h4 id="some-properties-of-self-attention">Some properties of Self-attention:</h4>
+<ol>
+<li>Self-attention exhibits <code>permutation invariance</code>:
+<ul>
+<li>This property ensures that rearranging the order of words does not alter the computed values. This characteristic is highly desirable.</li>
+</ul>
+<!-- raw HTML omitted -->
+<ul>
+<li>In this illustration, swapping the positions of \(B\) and \(C\) does not change the values computed for \(B&rsquo;\) and \(C&rsquo;\); it merely repositions them in the matrix.</li>
+</ul>
+<!-- raw HTML omitted -->
+</li>
+<li>As of now, self-attention requires no additional parameters (though this changes with multi-head attention).</li>
+<li>Values along the diagonal are expected to be the highest, reflecting each word&rsquo;s strongest relationship with itself.</li>
+<li>To prevent certain positions from interacting, their values can be set to \(-\infty\) before applying the softmax operation. This ensures that the model does not learn interactions involving those positions (since \(e^{-\infty} = 0\)). This property is particularly useful in decoder settings.</li>
+</ol>
+<h3 id="step-4-multi-head-attention">Step 4: Multi-Head Attention</h3>
+<p><img src="multi_head.png" alt="Multi-Head Attention"></p>
+<ol>
+<li>Initially, three copies of the input embeddings are created: \(Q, K, V\), akin to single-head attention.</li>
+<li>These \(Q, K, , V\) undergo multiplication by parameterized matrices \(W^q, W^k, W^v\) to yield \(Q&rsquo;, K&rsquo;, V&rsquo;\).</li>
+<li>\(Q&rsquo;, K&rsquo;, V&rsquo;\) are subsequently divided into multiple heads, following which attention is independently computed for each head using the standard procedure:
+\[\text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_{k}}}\right) V\]
+\[\text{and } head_i = Attention(QW_i^q, KW_i^k, VW_i^v)\]</li>
+<li>These individual heads are then concatenated to form the \(H\) matrix, which is subsequently multiplied by \(W^o\) to produce the final output:
+\[\text{Multihead}(Q, K, V) = \text{concat}(head_1, head_2, &hellip;. head_h)W^o\]
+<ul>
+<li><strong>But why split into multiple heads?</strong>
+<ul>
+<li>Each \(head_i\) processes the entire sentence but focuses on a <code>distinct aspect</code> of the word embeddings.</li>
+<li>This approach allows each head to specialize in different semantic aspects of the same word. For example, in Chinese, a word can function as a noun, verb, or adverb depending on context. By employing multiple heads, the model can capture these diverse possibilities.</li>
+<li>This structured approach of multi-head attention enables the model to effectively capture and leverage various semantic nuances and syntactic structures within the input data.</li>
+</ul>
+</li>
+<li><strong>Why Q, K and V and not something else?</strong>
+<ul>
+<li>This choice follows the convention used in Python dictionaries for keys (K), values (V), and queries (Q).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="step-5-add-and-norm">Step 5: Add and Norm</h3>
+<ol>
+<li>Before delving into the add and norm layer, it is essential to understand layer normalization.</li>
+<li>Let&rsquo;s consider a batch containing three items:
+<img src="norm.png" alt="Add and Normalization"></li>
+<li>WFor each item in the batch, we compute the mean \(\mu_i\) and variance \(\sigma^2_i\) separately. Each value \(x_i\) in the item is then transformed using the following formula:
+\[x_i = \gamma \frac{x - \mu_i}{\sqrt{\sigma^2_i + \epsilon}} + \beta\]</li>
+<li>Introducing two additional parameters, \(\gamma\) and \(\beta\), serves to introduce variability or adjustments into the data. This step is crucial because strictly confining all values between 0 and 1 may overly constrain the model.
+<ul>
+<li>The network learns to adjust these parameters \(\gamma\) and \(\beta\) as needed to accommodate variations in the data where appropriate.</li>
+</ul>
+</li>
+</ol>
+<p>This approach of layer normalization ensures that the model can effectively handle varying scales and distributions within the data, promoting stable and efficient training processes.</p>
+<h2 id="decoder">Decoder</h2>
+<ol>
+<li>In the case of the decoder, similar to the encoder, we start with <code>output embeddings</code> analogous to input embeddings in the encoder, and <code>positional embeddings</code> similar to PE in the encoder.</li>
+<li>Next, instead of the regular multi-head attention in the encoder, we employ <code>MASKED multi-head attention</code> and <code>cross-attention</code> followed by an add and norm layer.</li>
+<li>The \(K, V\) inputs are derived from the encoder output, whereas the \(Q\) input originates from the decoder. This setup transforms the self-attention block into a <code>cross-attention block</code>, where the decoder&rsquo;s focus extends beyond its own input to encompass information from the encoder.</li>
+</ol>
+<h3 id="step-1-masked-multi-head-attention">Step 1: Masked Multi-Head Attention</h3>
+<ol>
+<li>The primary objective is to ensure the model&rsquo;s <code>causality</code>, meaning that the output at any given position can only depend on preceding words. (<strong>How?</strong>)</li>
+<li>To enforce this restriction of not allowing the model to see future words, we replace all future positions with \(-\infty\), as previously discussed.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Your</th>
+<th>Cat</th>
+<th>Is</th>
+<th>A</th>
+<th>Lovely</th>
+<th>Cat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Your</td>
+<td></td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+</tr>
+<tr>
+<td>Cat</td>
+<td></td>
+<td></td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+</tr>
+<tr>
+<td>Is</td>
+<td></td>
+<td></td>
+<td></td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+</tr>
+<tr>
+<td>A</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>\(-\infty\)</td>
+<td>\(-\infty\)</td>
+</tr>
+<tr>
+<td>Lovely</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td>\(-\infty\)</td>
+</tr>
+<tr>
+<td>Cat</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>When we apply softmax on this masked attention matrix, the relations between words denoted by \(-\infty\) effectively become zero. This masking mechanism ensures that the model does not attend to future words.</p>
+<ol start="3">
+<li>The remaining components resemble those in the encoder, including a <code>cross-attention block</code> — which uses two inputs from the encoder output and one from the decoder output—and an add and norm layer. This block functions similarly to a self-attention block in the encoder, fostering interaction between encoder and decoder outputs to enhance sequence generation.</li>
+</ol>
+<h2 id="training-the-model">Training the model</h2>
+<ol>
+<li>We will consider a translation task, akin to the approach outlined in the referenced paper.</li>
+<li>For instance, translating <code>I love you very much (en)</code> to <code>Ti Amo Molto (it)</code>.
+<img src="training.png" alt="Training the model"></li>
+<li>Special tokens, notably \([SOS]\) (Start of Sentence) and \([EOS]\) (End of Sentence), are incorporated into our sentences.</li>
+<li>Subsequently, we compute the <code>i</code>nput embeddings<code>and</code>positional encodings` for both the encoder and the decoder.</li>
+<li>The encoder provides key \((K)\) and value \((V)\) vectors, which are utilized in conjunction with the masked query \((Q)\) from the decoder to generate decoder outputs.</li>
+<li>These outputs undergo transformation through a <code>linear layer</code> to map them into our vocabulary space.</li>
+<li>The resultant logits are subjected to a softmax operation to derive word predictions.</li>
+<li>The model&rsquo;s predictions are evaluated against the actual labels using the <code>cross entropy</code> loss function to adjust the model weights.</li>
+</ol>
+<ul>
+<li>All these operations are performed within a single time step, exemplifying the efficiency achieved in processing sequences in one pass.</li>
+</ul>
+<h2 id="inferencing-the-model">Inferencing the model</h2>
+<p>For inferring from the model, we follow a sequence of steps over four distinct time steps, as detailed below:</p>
+<h3 id="time-step-1">Time Step 1</h3>
+<p><img src="infer_1.png" alt="Inference Time Step - 1"></p>
+<ol>
+<li>Initiate with the \([SOS]\) token and compute logits using the decoder model.
+2.Apply softmax to these logits to predict the next word, which in this case is <code>Ti</code>.
+\[[SOS] \to Ti\]</li>
+</ol>
+<h3 id="time-step-2">Time Step 2</h3>
+<p><img src="infer_2.png" alt="Inference Time Step - 2"></p>
+<ol>
+<li>The encoder computation remains unchanged as the English sentence remains the same.</li>
+<li>Proceed from the current state where \([SOS]\ Ti\) was generated to predict <code>Amo</code>.
+\[[SOS]\ Ti \to Amo\]</li>
+</ol>
+<h3 id="time-step-3">Time Step 3</h3>
+<p><img src="infer_3.png" alt="Inference Time Step - 3"></p>
+<ol>
+<li>Continue the sequence from \([SOS]\ Ti\ Amo\) to predict <code>Molto</code>.
+\[[SOS]\ Ti\ Amo \to Molto\]</li>
+</ol>
+<h3 id="time-step-4">Time Step 4</h3>
+<p><img src="infer_4.png" alt="Inference Time Step - 4"></p>
+<ol>
+<li>Conclude the sequence with \([SOS]\ Ti\ Amo\ Molto\) resulting in the <code>[EOS]</code> token.
+\[[SOS]\ Ti\ Amo\ Molto \to [EOS]\]</li>
+</ol>
+<ul>
+<li>Thus, the process involves generating tokens sequentially until the <code>[EOS]</code> token is generated, completing the inference process.</li>
+</ul>
+<h3 id="inference-strategy">Inference Strategy</h3>
+<ol>
+<li>At each stage, our approach involved selecting the word with the highest probability or softmax value. This method is commonly known as <code>greedy decoding</code>, although it is often associated with suboptimal performance.</li>
+<li>Alternatively, a more effective strategy entails considering the top K words and evaluating all potential subsequent words for each of them at every stage. This method, referred to as <code>Beam Search</code>, typically yields superior results by maintaining the top K most probable sequences throughout the process.</li>
+</ol>
+<h2 id="references">References:</h2>
+<ol>
+<li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></li>
+<li><a href="https://www.youtube.com/watch?v=ISNdQcPhsts">Coding a Transformer from scratch on PyTorch, with full explanation, training and inference.</a></li>
+<li><a href="https://www.youtube.com/watch?v=bCz4OMemCcA">Attention is all you need (Transformer) - Model explanation (including math), Inference and Training</a></li>
+<li><a href="https://github.com/hkproj/transformer-from-scratch-notes/blob/main/Diagrams_V2.pdf">Transformers from scratch notes by Umar Jamil</a> used for figures in this blog.</li>
+</ol>
+<h2 id="appendix">Appendix</h2>
+<ol>
+<li><a href="#Fixit">Annotated Attention Paper</a></li>
+<li><a href="https://github.com/sarthak247/Attention-Is-All-You-Need">GitHub code repo</a></li>
+<li><a href="attention_notes.pdf">Handwritten Notes</a></li>
+</ol>
+<blockquote>
+<p>Photo by <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p>
+</blockquote>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div id="stickySideBar" class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#rnns-and-their-problems">RNNs and their problems</a>
+      <ul>
+        <li><a href="#problems">Problems</a></li>
+      </ul>
+    </li>
+    <li><a href="#transformer-for-the-rescue">Transformer for the rescue</a></li>
+    <li><a href="#encoder">Encoder</a>
+      <ul>
+        <li><a href="#step-1-input-embeddings">Step 1: Input Embeddings</a></li>
+        <li><a href="#step-2-positional-embeddings">Step 2. Positional Embeddings</a></li>
+        <li><a href="#step-3-self-attention-with-a-single-head">Step 3. Self attention (with a single head)</a></li>
+        <li><a href="#step-4-multi-head-attention">Step 4: Multi-Head Attention</a></li>
+        <li><a href="#step-5-add-and-norm">Step 5: Add and Norm</a></li>
+      </ul>
+    </li>
+    <li><a href="#decoder">Decoder</a>
+      <ul>
+        <li><a href="#step-1-masked-multi-head-attention">Step 1: Masked Multi-Head Attention</a></li>
+      </ul>
+    </li>
+    <li><a href="#training-the-model">Training the model</a></li>
+    <li><a href="#inferencing-the-model">Inferencing the model</a>
+      <ul>
+        <li><a href="#time-step-1">Time Step 1</a></li>
+        <li><a href="#time-step-2">Time Step 2</a></li>
+        <li><a href="#time-step-3">Time Step 3</a></li>
+        <li><a href="#time-step-4">Time Step 4</a></li>
+        <li><a href="#inference-strategy">Inference Strategy</a></li>
+      </ul>
+    </li>
+    <li><a href="#references">References:</a></li>
+    <li><a href="#appendix">Appendix</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/embeddings"
+                target="_blank"
+              >Embeddings</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/transformers"
+                target="_blank"
+              >Transformers</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/encoder"
+                target="_blank"
+              >Encoder</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/decoder"
+                target="_blank"
+              >Decoder</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/input-embeddings"
+                target="_blank"
+              >Input Embeddings</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:37417/tags/positional-embeddings"
+                target="_blank"
+              >Positional Embeddings</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2flocalhost%3a37417%2fblogs%2fattention-is-all-you-need%2f">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Attention%20Is%20All%20You%20Need%20-%20From%20where%20it%20all%20started&url=http%3a%2f%2flocalhost%3a37417%2fblogs%2fattention-is-all-you-need%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Attention%20Is%20All%20You%20Need%20-%20From%20where%20it%20all%20started: http%3a%2f%2flocalhost%3a37417%2fblogs%2fattention-is-all-you-need%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=Attention%20Is%20All%20You%20Need%20-%20From%20where%20it%20all%20started&amp;body=Check%20out%20this%20site http%3a%2f%2flocalhost%3a37417%2fblogs%2fattention-is-all-you-need%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+
+<div class="progress">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<Script src="/js/scrollProgressBar.js"></script>
+
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  
+  let stickySideBarElem = document.getElementById("stickySideBar");
+  let stickyNavBar =  true ;
+  if(stickyNavBar) {
+    let headerElem = document.getElementById("profileHeader");
+    let headerHeight = headerElem.offsetHeight + 15;
+    stickySideBarElem.style.top = headerHeight + "px";
+  } else {
+    stickySideBarElem.style.top = "50px";
+  }
+</script>
+
+
+<script src="/js/readingTime.js"></script>
+
+
+
+  </div><footer>
+    
+ 
+ 
+<div class="container py-3" id="recent-posts">
+    
+    
+    <div class="h3 text-center text-secondary py-3">
+        Recent Posts
+    </div>
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/attention-is-all-you-need/">
+                        <img src="/projects/attention.png" class="card-img-top" alt="Attention Is All You Need - From where it all started">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/attention-is-all-you-need/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Attention Is All You Need - From where it all started">Attention Is All You Need …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Introduction In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from arXiv, the volume of papers tagged under LLM averages nine submissions daily. To comprehend these …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jul 3, 2024</span>
+                    <a href="/blogs/attention-is-all-you-need/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/word-embeddings/">
+                        <img src="/blogs/word-embeddings/cover.png" class="card-img-top" alt="Unraveling the Power of Word Vectorization: From Text to Numbers">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/word-embeddings/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Unraveling the Power of Word Vectorization: From Text to Numbers">Unraveling the Power of …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Introduction In the realm of Natural Language Processing (NLP), one of the key challenges is to bridge the gap between the textual world of words and the numerical world of computers. We know that computers only understand in form of numbers (0s and 1s to be precise). So how do we make sense of …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Sep 5, 2023</span>
+                    <a href="/blogs/word-embeddings/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/hello-world/">
+                        <img src="/blogs/hello-world/cover.jpg" class="card-img-top" alt="Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/hello-world/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Embracing Freedom: My Journey to Creating a Personal Blog with Hugo and GitHub Pages">Embracing Freedom: My …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p>Introduction In a world dominated by social media platforms and curated content, the idea of having a personal space on the internet has always fascinated me. A place where I can express my thoughts, share my experiences, and have complete control over what goes in and what stays out. That&rsquo;s …</p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Sep 4, 2023</span>
+                    <a href="/blogs/hello-world/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="text-center pt-2">
+    
+    <span class="px-1">
+        <a href="https://github.com/sarthak247" aria-label="github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2.7em" height="2.7em" viewBox="0 0 1792 1792">
+                <path
+                    d="M522 1352q-8 9-20-3-13-11-4-19 8-9 20 3 12 11 4 19zm-42-61q9 12 0 19-8 6-17-7t0-18q9-7 17 6zm-61-60q-5 7-13 2-10-5-7-12 3-5 13-2 10 5 7 12zm31 34q-6 7-16-3-9-11-2-16 6-6 16 3 9 11 2 16zm129 112q-4 12-19 6-17-4-13-15t19-7q16 5 13 16zm63 5q0 11-16 11-17 2-17-11 0-11 16-11 17-2 17 11zm58-10q2 10-14 14t-18-8 14-15q16-2 18 9zm964-956v960q0 119-84.5 203.5t-203.5 84.5h-224q-16 0-24.5-1t-19.5-5-16-14.5-5-27.5v-239q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-121-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-86-13.5q-44 113-7 204-79 85-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-40 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 103t.5 68q0 22-11 33.5t-22 13-33 1.5h-224q-119 0-203.5-84.5t-84.5-203.5v-960q0-119 84.5-203.5t203.5-84.5h960q119 0 203.5 84.5t84.5 203.5z" />
+
+                <metadata>
+                    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+                        <rdf:Description about="https://iconscout.com/legal#licenses"
+                            dc:title="Github, Online, Project, Hosting, Square"
+                            dc:description="Github, Online, Project, Hosting, Square" dc:publisher="Iconscout"
+                            dc:date="2016-12-14" dc:format="image/svg+xml" dc:language="en">
+                            <dc:creator>
+                                <rdf:Bag>
+                                    <rdf:li>Font Awesome</rdf:li>
+                                </rdf:Bag>
+                            </dc:creator>
+                        </rdf:Description>
+                    </rdf:RDF>
+                </metadata>
+            </svg>
+        </a>
+    </span>
+    
+
+    
+    <span class="px-1">
+        <a href="https://linkedin.com/in/sarthak247/" aria-label="linkedin">
+            <svg xmlns="http://www.w3.org/2000/svg" width='2.4em' height='2.4em' fill="#fff" aria-label="LinkedIn"
+                viewBox="0 0 512 512">
+                <rect width="512" height="512" fill="#0077b5" rx="15%" />
+                <circle cx="142" cy="138" r="37" />
+                <path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198" />
+                <path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+        </a>
+    </span>
+    
+
+    
+    <a href="https://x.com/sarthak2407" aria-label="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+            <path fill="#03a9f4"
+                d="M42,37c0,2.762-2.239,5-5,5H11c-2.762,0-5-2.238-5-5V11c0-2.762,2.238-5,5-5h26c2.761,0,5,2.238,5,5 V37z" />
+            <path fill="#fff"
+                d="M36,17.12c-0.882,0.391-1.999,0.758-3,0.88c1.018-0.604,2.633-1.862,3-3 c-0.951,0.559-2.671,1.156-3.793,1.372C31.311,15.422,30.033,15,28.617,15C25.897,15,24,17.305,24,20v2c-4,0-7.9-3.047-10.327-6 c-0.427,0.721-0.667,1.565-0.667,2.457c0,1.819,1.671,3.665,2.994,4.543c-0.807-0.025-2.335-0.641-3-1c0,0.016,0,0.036,0,0.057 c0,2.367,1.661,3.974,3.912,4.422C16.501,26.592,16,27,14.072,27c0.626,1.935,3.773,2.958,5.928,3c-1.686,1.307-4.692,2-7,2 c-0.399,0-0.615,0.022-1-0.023C14.178,33.357,17.22,34,20,34c9.057,0,14-6.918,14-13.37c0-0.212-0.007-0.922-0.018-1.13 C34.95,18.818,35.342,18.104,36,17.12" />
+        </svg>
+    </a>
+    
+
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            
+                <div class="pb-2">
+                    <a href="http://localhost:37417/" title="Sarthak Thakur">
+                        <img alt="Footer logo" src="./favicon.png"
+                            height="40px" width="40px">
+                    </a>
+                </div>
+            
+            &copy; 2024  All rights reserved
+            <div class="text-secondary">
+                Made with
+                <span class="text-danger">
+                    &#10084;
+                </span>
+                and
+                <a href="https://github.com/gurusabarish/hugo-profile" target="_blank"
+                    title="Designed and developed by gurusabarish">
+                    Hugo Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
+
+
+    <script src="/js/search.js"></script>
+
+
+
+
+
+<!-- MathJax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha384-M5jmNxKC9EVnuqeMwRHvFuYUE8Hhp0TgBruj/GZRkYtiMrCRgH7yvv5KY+Owi7TW" crossorigin="anonymous"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\[','\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+             extensions: ["AMSmath.js", "AMSsymbols.js"] }
+      }
+    });
+</script>
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

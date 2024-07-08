@@ -147,7 +147,7 @@ params:
     button:
       enable: true
       name: "Resume"
-      url: "./resume.pdf" #Fixit
+      url: /files/resume.pdf #Fixit
       download: true
       newPage: false
     socialLinks:
@@ -158,8 +158,7 @@ params:
           url: https://www.linkedin.com/in/sarthak247/
         - icon: fab fa-x-twitter
           url: https://x.com/sarthak2407
-          #Fixit
-        - icon: fab fa-graduation-cap
+        - icon: fas fa-graduation-cap
           url: https://scholar.google.com/citations?user=i3h23AkAAAAJ&hl=en
       # customIcons:
       #   - icon: /fav.png
@@ -197,9 +196,9 @@ params:
         companyUrl: "https://crest-centre.net/"
         date: "Sept 2023 - May 2024"
         featuredLink:
-          enable: false
-          name: "View the project"
-          url: "https://example.com"
+          enable: true
+          name: "Project Report"
+          url: /files/reports/crest.pdf
         content: |
           - Conducted comprehensive literature reviews to remain updated on the latest advancements in LLMs, automated program repair, and associated optimization techniques.
           - Fine-tuned Large Language Models (LLMs) such as Codellama, PLBART, Refact, CodeGen, and CodeT5 for Automated Program Repair (APR) tasks, employing techniques including PEFT (Parameter Efficient Fine-Tuning), LoRA (Low-Rank Adaptation), and int-8 optimization.
@@ -214,8 +213,9 @@ params:
         companyUrl: "https://www.adelaide.edu.au/aiml/"
         date: "Sept 2022 - Dec 2022"
         featuredLink:
-          enable: false
-          url: "https://example.com"
+          enable: true
+          name: "Project Report"
+          url: /files/reports/aiml.pdf
         info:
           enable: true
           content: I worked as an ML intern for around 4 months at Australian Institute of Machine Learning (AIML).
@@ -282,7 +282,7 @@ params:
         featuredLink:
           enable: true
           name: "Academic Transcript"
-          url: "https://example.com" #Fixit
+          url: /files/transcript.pdf
 
       - title: "Bachelor of Engineering in Computer Science"
         school:
@@ -364,19 +364,19 @@ params:
           - icon: fab fa-github
             url: https://github.com/sarthak247/NekoPDF
 
-      # - title: Hugo Profile V2
-      #   content: A clean and simple Hugo template for personal portfolio and blog.
-      #   image: /images/projects/profile2.jpg
-      #   featured:
-      #     name: Demo V2
-      #     link: https://hugo-profile-2.netlify.app
-      #   badges:
-      #     - "Hugo"
-      #     - "Bootstrap"
-      #     - "Javascript"
-      #   links:
-      #     - icon: fab fa-github
-      #       url: https://github.com/gurusabarish/HugoProfileV2
+      - title: Style Transfer
+        content: |-
+          Real Time Style Tranfer on videos with Temporal consistency.
+        image: /projects/style.png
+        featured:
+          # name: Demo
+          # link: https://django-converter.herokuapp.com
+        badges:
+          - "Style Tranfer"
+          - "Convolutional Neural Network"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/sarthak247/AIMLProject
 
   #Contact
   contact:

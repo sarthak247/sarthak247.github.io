@@ -348,32 +348,35 @@ params:
           - icon: fas fa-blog 
             url: /blogs/attention-is-all-you-need
 
-      - title: 
-        content: A web app to convert image to pdf, png to jpg, png to jpg and png to webp without database using django.
-        image: /images/projects/converter.jpg
+      - title: 🐱 NekoPDF 📖 - Document Interaction with LLM
+        content: |-
+          A web app to seamlessly interact with your documents using a Large Language Model over the Langchain framework. Currently support OpenAI and a single PDF file at a time but an option for other LLM backends and multiple PDF files will be added soon.
+        image: /projects/nekopdf.png
         featured:
-          name: Demo
-          link: https://django-converter.herokuapp.com
+          # name: Demo
+          # link: https://django-converter.herokuapp.com
         badges:
-          - "Django"
-          - "Bootstrap"
+          - "Streamlit"
+          - "OpenAI"
+          - "LLM"
+          - "Langchain"
         links:
           - icon: fab fa-github
-            url: https://github.com/gurusabarish/converter
+            url: https://github.com/sarthak247/NekoPDF
 
-      - title: Hugo Profile V2
-        content: A clean and simple Hugo template for personal portfolio and blog.
-        image: /images/projects/profile2.jpg
-        featured:
-          name: Demo V2
-          link: https://hugo-profile-2.netlify.app
-        badges:
-          - "Hugo"
-          - "Bootstrap"
-          - "Javascript"
-        links:
-          - icon: fab fa-github
-            url: https://github.com/gurusabarish/HugoProfileV2
+      # - title: Hugo Profile V2
+      #   content: A clean and simple Hugo template for personal portfolio and blog.
+      #   image: /images/projects/profile2.jpg
+      #   featured:
+      #     name: Demo V2
+      #     link: https://hugo-profile-2.netlify.app
+      #   badges:
+      #     - "Hugo"
+      #     - "Bootstrap"
+      #     - "Javascript"
+      #   links:
+      #     - icon: fab fa-github
+      #       url: https://github.com/gurusabarish/HugoProfileV2
 
   #Contact
   contact:

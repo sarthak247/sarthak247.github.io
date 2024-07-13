@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>REST on Sarthak Thakur</title>
+    <link>http://localhost:1313/categories/rest/</link>
+    <description>Recent content in REST on Sarthak Thakur</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 13 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/categories/rest/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide</title>
+      <link>http://localhost:1313/blogs/fastapi/</link>
+      <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/fastapi/</guid>
+      <description>Introduction to FastAPI Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&amp;rsquo;s type system and also cause I have been looking for some time for a way to deploy my ML applications easily and with minimalistic code as I&amp;rsquo;m not a web developer and struggle with that part.</description>
+    </item>
+  </channel>
+</rss>

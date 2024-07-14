@@ -330,7 +330,8 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
           </div>
           
           <article class="page-content  p-2">
-          <h2 id="advanced-features-with-fastapi">Advanced Features with FastAPI</h2>
+          <p>In the <a href="../fastapi">previous blog</a>, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found around the internet. Note that these are completely optional and for just deploying a model, even the previous blog will suffice. It&rsquo;s just that I thought while I am at it, might just learn a bit more the best practices regarding FastAPI.</p>
+<h2 id="advanced-features-with-fastapi">Advanced Features with FastAPI</h2>
 <p>After learning how to be able to serve my models using FastAPI, I decided to extend it further in order to enhance the functionality, security and scalability of my API. For this, I read about additional topics like input validation, error handling and authentication, which although won&rsquo;t be help me much for the purpose for which I initially started learning FastAPI, i.e., to make demo apps for my ML models, but they are crucial for developing production-ready APIs and so I thought about giving them a read too.</p>
 <h3 id="input-validation">Input Validation</h3>
 <p>Input validation ensures that incoming data meets specified criteria before processing. FastAPI integrates seamlessly with <code>Pydantic</code> for data validation, leveraging Python&rsquo;s type hints. Here’s how I implemented input validation in my FastAPI application:</p>
@@ -360,46 +361,60 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
 </ul>
 <h3 id="authentication-and-authorization">Authentication and Authorization</h3>
 <p>Securing APIs with authentication and authorization mechanisms is essential for protecting sensitive data and restricting access to authorized users. FastAPI supports various authentication methods, including OAuth2, JWT (JSON Web Tokens), and basic authentication. Here’s a simple example of implementing JWT authentication in FastAPI:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> fastapi <span style="color:#f92672">import</span> Depends, HTTPException, status
-</span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> fastapi.security <span style="color:#f92672">import</span> OAuth2PasswordBearer
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#75715e"># Pydantic models</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">User</span>(BaseModel):
+</span></span><span style="display:flex;"><span>    username: str
+</span></span><span style="display:flex;"><span>    email: Optional[str] <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
+</span></span><span style="display:flex;"><span>    full_name: Optional[str] <span style="color:#f92672">=</span> <span style="color:#66d9ef">None</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>security <span style="color:#f92672">=</span> OAuth2PasswordBearer(tokenurl<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;/token&#39;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">UserInDB</span>(User):
+</span></span><span style="display:flex;"><span>    hashed_password: str
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e"># Mock user database</span>
-</span></span><span style="display:flex;"><span>fake_users_db <span style="color:#f92672">=</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;johndoe&#34;</span>: {
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;username&#34;</span>: <span style="color:#e6db74">&#34;johndoe&#34;</span>,
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;hashed_password&#34;</span>: <span style="color:#e6db74">&#34;$2b$12$V2qBpWn5GDK/9QrF3l7AyO6x9BdFssEcVbOeYURVn8t62MzK4IO5u&#34;</span>,  <span style="color:#75715e"># hashed version of password &#39;secret&#39;</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#e6db74">&#34;disabled&#34;</span>: <span style="color:#66d9ef">False</span>,
-</span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># OAuth2 scheme using JWT tokens</span>
+</span></span><span style="display:flex;"><span>oauth2_scheme <span style="color:#f92672">=</span> OAuth2PasswordBearer(tokenUrl<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/token&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">verify_password</span>(username: str, password: str):
-</span></span><span style="display:flex;"><span>    user <span style="color:#f92672">=</span> fake_users_db<span style="color:#f92672">.</span>get(username)
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> user <span style="color:#f92672">or</span> <span style="color:#f92672">not</span> password:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">False</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> password <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;secret&#39;</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">True</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Function to verify JWT token and extract user information</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">verify_token</span>(token: str <span style="color:#f92672">=</span> Depends(oauth2_scheme)):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">try</span>:
+</span></span><span style="display:flex;"><span>        payload <span style="color:#f92672">=</span> jwt<span style="color:#f92672">.</span>decode(token, SECRET_KEY, algorithms<span style="color:#f92672">=</span>[<span style="color:#e6db74">&#34;HS256&#34;</span>])
+</span></span><span style="display:flex;"><span>        username: str <span style="color:#f92672">=</span> payload<span style="color:#f92672">.</span>get(<span style="color:#e6db74">&#34;sub&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> username <span style="color:#f92672">is</span> <span style="color:#66d9ef">None</span>:
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> HTTPException(status_code<span style="color:#f92672">=</span><span style="color:#ae81ff">401</span>, detail<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Invalid credentials&#34;</span>)
+</span></span><span style="display:flex;"><span>        token_data <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;username&#34;</span>: username}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> jwt<span style="color:#f92672">.</span>ExpiredSignatureError:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> HTTPException(status_code<span style="color:#f92672">=</span><span style="color:#ae81ff">401</span>, detail<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Token has expired&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">except</span> jwt<span style="color:#f92672">.</span>JWTError:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> HTTPException(status_code<span style="color:#f92672">=</span><span style="color:#ae81ff">401</span>, detail<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Invalid token&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> token_data
 </span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Route to generate JWT token</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.post</span>(<span style="color:#e6db74">&#34;/token&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">login</span>(form_data: OAuth2PasswordRequestForm <span style="color:#f92672">=</span> Depends()):
+</span></span><span style="display:flex;"><span>    user_dict <span style="color:#f92672">=</span> fake_users_db<span style="color:#f92672">.</span>get(form_data<span style="color:#f92672">.</span>username)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> user_dict <span style="color:#f92672">and</span> form_data<span style="color:#f92672">.</span>password <span style="color:#f92672">==</span> <span style="color:#e6db74">&#34;fakepassword&#34;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e"># Generate JWT token</span>
+</span></span><span style="display:flex;"><span>        expiration <span style="color:#f92672">=</span> datetime<span style="color:#f92672">.</span>utcnow() <span style="color:#f92672">+</span> timedelta(minutes<span style="color:#f92672">=</span>TOKEN_EXPIRATION)
+</span></span><span style="display:flex;"><span>        token_data <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;sub&#34;</span>: form_data<span style="color:#f92672">.</span>username, <span style="color:#e6db74">&#34;exp&#34;</span>: expiration}
+</span></span><span style="display:flex;"><span>        token <span style="color:#f92672">=</span> jwt<span style="color:#f92672">.</span>encode(token_data, SECRET_KEY, algorithm<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;HS256&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;access_token&#34;</span>: token, <span style="color:#e6db74">&#34;token_type&#34;</span>: <span style="color:#e6db74">&#34;bearer&#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">raise</span> HTTPException(status_code<span style="color:#f92672">=</span><span style="color:#ae81ff">401</span>, detail<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Incorrect username or password&#34;</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_current_user</span>(token: str <span style="color:#f92672">=</span> Depends(security)):
-</span></span><span style="display:flex;"><span>    username, _ <span style="color:#f92672">=</span> token<span style="color:#f92672">.</span>split(<span style="color:#e6db74">&#34;:&#34;</span>)
-</span></span><span style="display:flex;"><span>    user <span style="color:#f92672">=</span> fake_users_db<span style="color:#f92672">.</span>get(username)
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#f92672">not</span> user:
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">raise</span> HTTPException(
-</span></span><span style="display:flex;"><span>            status_code <span style="color:#f92672">=</span> status<span style="color:#f92672">.</span>HTTP_401_UNAUTHORIZED,
-</span></span><span style="display:flex;"><span>            detail <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Invalid Credentials&#39;</span>,
-</span></span><span style="display:flex;"><span>            headers <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#34;WWW-Authenticate&#34;</span>: <span style="color:#e6db74">&#34;Bearer&#34;</span>}
-</span></span><span style="display:flex;"><span>        )   
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> user
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.get</span>(<span style="color:#e6db74">&#39;users/me&#39;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_current_user</span>(current_user : dict <span style="color:#f92672">=</span> Depends(get_current_user)):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> current_user
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Example protected route</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.get</span>(<span style="color:#e6db74">&#34;/users/me&#34;</span>, response_model<span style="color:#f92672">=</span>User)
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_users_me</span>(current_user: User <span style="color:#f92672">=</span> Depends(verify_token)):
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> fake_users_db[current_user[<span style="color:#e6db74">&#34;username&#34;</span>]]
 </span></span></code></pre></div><ul>
-<li><strong>Explanation:</strong> In this example, <code>OAuth2PasswordBearer</code> is used to define an authentication scheme using OAuth2 with password flow. The <code>get_current_user()</code> function verifies the JWT token and retrieves the current user from the mock database <code>(fake_users_db)</code>. The <code>read_current_user()</code> endpoint demonstrates accessing user information with authentication.</li>
+<li><strong>User Database:</strong> Here, <code>fake_users_db</code> simulates a user database with a single user for demonstration.</li>
+<li><strong>Pydantic models:</strong> <code>User</code> and <code>UserInDB</code> are Pydantic models used for type checking.</li>
+<li><strong>OAuth2 Scheme:</strong> <code>oauth2_scheme</code> is configured using <code>OAuth2PasswordBearer</code>, specifying the token URL <code>(/token)</code> for token retrieval.</li>
+<li><strong>Token Verification:</strong> <code>verify_token</code> function is a dependency that verifies and decodes the JWT token sent in the Authorization header of requests.</li>
+<li><strong>Token Generation:</strong> The <code>/token</code> endpoint (login function) handles user authentication. If the credentials are valid (fakepassword is the hardcoded password for demonstration), it generates a JWT token using jwt.encode.</li>
+<li><strong>Protected Route:</strong> The <code>/users/me</code> endpoint (read_users_me function) demonstrates a protected route that requires JWT token authentication (verify_token dependency). It returns user information based on the decoded JWT token and remains protected if try to access it without logging in or logging in with some other username or password.</li>
 </ul>
+<p>Now, if open up <code>Swagger UI</code>, and try to access the <code>/users/me</code> endpoint, it won&rsquo;t show anything and give an error message saying we are not authenticated.</p>
+<p><img src="unauthorized.png" alt="Unautorized access"></p>
+<p>However, if we login (Use <code>Autheticate</code> at the top right hand side of Swagger) with the credentials, <code>johndoe</code> and <code>fakepasword</code>, we are able to generate our JWT token and thus are logged in and can now access our protected endpoint.</p>
+<p><img src="authorized.png" alt="Authorized Access"></p>
 <h2 id="deployment-strategies-for-fastapi">Deployment Strategies for FASTApi</h2>
 <p>Moving further, after building the app, it is also essential to be able to deploy it. FastAPI applications can be deployed using various deployment options, depending on scalability requirements, infrastructure preferences, and operational constraints. Here are some common deployment strategies.</p>
 <ul>
@@ -434,20 +449,59 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
 <ol>
 <li><strong>Dockerfile:</strong> Create a <code>Dockerfile</code> in your FastAPI project directory.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> tiangolo/uvicorn-gunicorn-fastapi:python3.9</span><span style="color:#960050;background-color:#1e0010">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Dockerfile" data-lang="Dockerfile"><span style="display:flex;"><span><span style="color:#75715e"># Use an official Python runtime as a parent image</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">FROM</span><span style="color:#e6db74"> python:3.9-slim</span><span style="color:#960050;background-color:#1e0010">
 </span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
-</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> ./app /app<span style="color:#960050;background-color:#1e0010">
-</span></span></span></code></pre></div><p>Replace <code>./app</code> with the path to your FastAPI application directory.</p>
-<ol start="2">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Set environment variables</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PYTHONDONTWRITEBYTECODE <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">ENV</span> PYTHONUNBUFFERED <span style="color:#ae81ff">1</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Set the working directory in the container</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">WORKDIR</span><span style="color:#e6db74"> /app</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install system dependencies</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> apt-get update <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get install -y --no-install-recommends netcat-traditional <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> apt-get clean <span style="color:#ae81ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    <span style="color:#f92672">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Install Python dependencies</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> requirements.txt /app/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">RUN</span> pip install --upgrade pip <span style="color:#f92672">&amp;&amp;</span> pip install --no-cache-dir -r requirements.txt<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Copy the FastAPI app code into the container</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">COPY</span> . /app/<span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Expose the port that FastAPI runs on</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">EXPOSE</span><span style="color:#e6db74"> 8000</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#75715e"># Command to run the FastAPI application</span><span style="color:#960050;background-color:#1e0010">
+</span></span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010"></span><span style="color:#66d9ef">CMD</span> [<span style="color:#e6db74">&#34;uvicorn&#34;</span>, <span style="color:#e6db74">&#34;main:app&#34;</span>, <span style="color:#e6db74">&#34;--host&#34;</span>, <span style="color:#e6db74">&#34;0.0.0.0&#34;</span>, <span style="color:#e6db74">&#34;--port&#34;</span>, <span style="color:#e6db74">&#34;8000&#34;</span>]<span style="color:#960050;background-color:#1e0010">
+</span></span></span></code></pre></div><ol start="2">
+<li>Add a <code>requirements.txt</code> file in the FastAPI directory</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-requirements.txt" data-lang="requirements.txt"><span style="display:flex;"><span>fastapi
+</span></span><span style="display:flex;"><span>uvicorn
+</span></span><span style="display:flex;"><span>pyjwt
+</span></span><span style="display:flex;"><span>prometheus-client
+</span></span></code></pre></div><ol start="2">
 <li><strong>Build Docker Image:</strong> Build the docker image</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker build -t fastapi-app
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker build -t my-fastapi-app .
 </span></span></code></pre></div><ol start="3">
 <li><strong>Run Docker Container:</strong> Run the Docker container.</li>
 </ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -d -p 80:80 fastapi-app
-</span></span></code></pre></div><p>Adjust <code>-p 80:80</code> to map the container port to a desired host port.</p>
-<h2 id="continuous-integration-and-delivery-cicd-for-fastapi">Continuous Integration and Delivery (CI/CD) for FastAPI</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run -d --name my-fastapi-container -p 8000:8000 my-fastapi-app
+</span></span></code></pre></div><ol start="4">
+<li>The container should run without any issue and we can even monitor its health using:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>sudo docker logs my-fastapi-container
+</span></span></code></pre></div><p><img src="docker.png" alt="Running Docker Container"></p>
+<ol start="5">
+<li>To stop the container use:</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker stop my-fastapi-container
+</span></span></code></pre></div><h2 id="continuous-integration-and-delivery-cicd-for-fastapi">Continuous Integration and Delivery (CI/CD) for FastAPI</h2>
 <p>Phewwww! Now that we&rsquo;ve come all the way to deployment, I thought why not also add some CI/CD pipelines to it as it helps automate the building, testing and deployment processes, ensuring reliable and efficient software delivery.</p>
 <h3 id="setting-up-a-cicd-pipeline">Setting up a CI/CD Pipeline</h3>
 <p>CI/CD pipelines automate several key tasks in the software development lifecycle, including:</p>
@@ -559,36 +613,40 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
 </span></span><span style="display:flex;"><span>REQUEST_LATENCY <span style="color:#f92672">=</span> Histogram(<span style="color:#e6db74">&#34;request_latency_seconds&#34;</span>, <span style="color:#e6db74">&#34;Request latency in seconds&#34;</span>, [<span style="color:#e6db74">&#34;method&#34;</span>, <span style="color:#e6db74">&#34;endpoint&#34;</span>])
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">PrometheusMiddleware</span>(BaseHTTPMiddleware):
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dispatch</span>(self, request, call_next):
-</span></span><span style="display:flex;"><span>        path <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>url<span style="color:#f92672">.</span>path
-</span></span><span style="display:flex;"><span>        method <span style="color:#f92672">=</span> request<span style="color:#f92672">.</span>method
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dispatch</span>(self, request : Response, call_next):
+</span></span><span style="display:flex;"><span>        start_time <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time()
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">try</span>:
 </span></span><span style="display:flex;"><span>            response <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> call_next(request)
 </span></span><span style="display:flex;"><span>            status_code <span style="color:#f92672">=</span> response<span style="color:#f92672">.</span>status_code
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> response
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">except</span> HTTPException <span style="color:#66d9ef">as</span> http_exc:
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e"># Capture HTTPException to get status_code</span>
+</span></span><span style="display:flex;"><span>            status_code <span style="color:#f92672">=</span> http_exc<span style="color:#f92672">.</span>status_code
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">raise</span> http_exc
+</span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">finally</span>:
-</span></span><span style="display:flex;"><span>            REQUEST_COUNT<span style="color:#f92672">.</span>labels(method<span style="color:#f92672">=</span>method, endpoint<span style="color:#f92672">=</span>path, status_code<span style="color:#f92672">=</span>status_code)<span style="color:#f92672">.</span>inc()
-</span></span><span style="display:flex;"><span>            latency <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> request<span style="color:#f92672">.</span>scope[<span style="color:#e6db74">&#34;start_time&#34;</span>]
-</span></span><span style="display:flex;"><span>            REQUEST_LATENCY<span style="color:#f92672">.</span>labels(method<span style="color:#f92672">=</span>method, endpoint<span style="color:#f92672">=</span>path)<span style="color:#f92672">.</span>observe(latency)
+</span></span><span style="display:flex;"><span>            REQUEST_COUNT<span style="color:#f92672">.</span>labels(method<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>method, endpoint<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>url<span style="color:#f92672">.</span>path, status_code<span style="color:#f92672">=</span>status_code)<span style="color:#f92672">.</span>inc()
+</span></span><span style="display:flex;"><span>            latency <span style="color:#f92672">=</span> time<span style="color:#f92672">.</span>time() <span style="color:#f92672">-</span> start_time
+</span></span><span style="display:flex;"><span>            REQUEST_LATENCY<span style="color:#f92672">.</span>labels(method<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>method, endpoint<span style="color:#f92672">=</span>request<span style="color:#f92672">.</span>url<span style="color:#f92672">.</span>path)<span style="color:#f92672">.</span>observe(latency)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>app<span style="color:#f92672">.</span>add_middleware(PrometheusMiddleware)
-</span></span></code></pre></div><ol start="3">
-<li>Expose Metrics Endpoint:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> fastapi.responses <span style="color:#f92672">import</span> Response
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">@app.get</span>(<span style="color:#e6db74">&#34;/metrics&#34;</span>)
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">get_metrics</span>():
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> Response(generate_latest(), media_type<span style="color:#f92672">=</span>CONTENT_TYPE_LATEST)
-</span></span></code></pre></div><ol start="4">
-<li>Instrument Endpoints:</li>
-</ol>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#a6e22e">@app.get</span>(<span style="color:#e6db74">&#34;/items/&#34;</span>)
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">async</span> <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">read_items</span>():
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e"># Endpoint logic</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {<span style="color:#e6db74">&#34;message&#34;</span>: <span style="color:#e6db74">&#34;Items retrieved successfully&#34;</span>}
-</span></span></code></pre></div><h2 id="conclusion">Conclusion</h2>
+</span></span></code></pre></div><p><img src="metrics.png" alt="FastAPI Metrics"></p>
+<p>After this, we will be able to access our FastAPI metrics at the given endpoint. However, in order to understand it more efficiently, one can even use services like <code>Prometheus</code> and <code>Grafana</code></p>
+<h2 id="conclusion">Conclusion</h2>
 <p>And that&rsquo;s a wrap. Phewww.. While there is a lot to cover in FastAPI and certainly it can&rsquo;t be done in a single blog, I still attempted to atleast log some of the things which I learnt during this time of learning FastAPI. After all, this is not a book lol. Just a reference blog for me to look back to when I get stuck with something working with FastAPI again. I think it covers most of the basic stuff and just in case I missed out something, I can always go back and have a look at the FastAPI docs. For now, I&rsquo;d say that FastAPI is truly amazing as for how easy it is to make and manage endpoints and deploying my ML apps to it. And the best part? It&rsquo;s fairly easy to learn too. It took me just 2 days to go through all this and I believe someone who works with Python will find it fairly easy to use. With that being said, I think that&rsquo;s all from my side regarding FastAPI for now. Until Next Time. Adios!</p>
+<h2 id="appendix">Appendix</h2>
+<ul>
+<li><a href="main.py">Code for this blog</a></li>
+<li><a href="Dockerfile">Dockerfile Code</a></li>
+<li><a href="fastapi.yaml">GitHub Actions Code</a></li>
+</ul>
+<blockquote>
+<p>Photo by <a href="https://datascientest.com/en/fastapi-everything-you-need-to-know-about-the-most-widely-used-python-web-framework-for-machine-learning">Data Scientist</a></p>
+</blockquote>
 
           </article>
         </div>
@@ -630,6 +688,7 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
       </ul>
     </li>
     <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#appendix">Appendix</a></li>
   </ul>
 </nav>
               </div>
@@ -771,7 +830,7 @@ Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 | Sartha
                         <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2">Building Efficient ML …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>Advanced Features with FastAPI After learning how to be able to serve my models using FastAPI, I decided to extend it further in order to enhance the functionality, security and scalability of my API. For this, I read about additional topics like input validation, error handling and authentication, …</p>
+                        <p>In the previous blog, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">

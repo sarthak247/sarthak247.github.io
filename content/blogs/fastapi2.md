@@ -16,6 +16,8 @@ tags:
 weight: 1       # You can add weight to some posts to override the default sorting (date descending)
 ---
 
+In the [previous blog](../fastapi), I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found around the internet. Note that these are completely optional and for just deploying a model, even the previous blog will suffice. It's just that I thought while I am at it, might just learn a bit more the best practices regarding FastAPI.
+
 ## Advanced Features with FastAPI
 After learning how to be able to serve my models using FastAPI, I decided to extend it further in order to enhance the functionality, security and scalability of my API. For this, I read about additional topics like input validation, error handling and authentication, which although won't be help me much for the purpose for which I initially started learning FastAPI, i.e., to make demo apps for my ML models, but they are crucial for developing production-ready APIs and so I thought about giving them a read too.
 
@@ -54,46 +56,64 @@ def read_item(item_id : int):
 Securing APIs with authentication and authorization mechanisms is essential for protecting sensitive data and restricting access to authorized users. FastAPI supports various authentication methods, including OAuth2, JWT (JSON Web Tokens), and basic authentication. Here’s a simple example of implementing JWT authentication in FastAPI:
 
 ```python
-from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+# Pydantic models
+class User(BaseModel):
+    username: str
+    email: Optional[str] = None
+    full_name: Optional[str] = None
 
-security = OAuth2PasswordBearer(tokenurl='/token')
+class UserInDB(User):
+    hashed_password: str
 
-# Mock user database
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "hashed_password": "$2b$12$V2qBpWn5GDK/9QrF3l7AyO6x9BdFssEcVbOeYURVn8t62MzK4IO5u",  # hashed version of password 'secret'
-        "disabled": False,
-    }
-}
+# OAuth2 scheme using JWT tokens
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/token")
 
-def verify_password(username: str, password: str):
-    user = fake_users_db.get(username)
-    if not user or not password:
-        return False
-    if password == 'secret':
-        return True
+# Function to verify JWT token and extract user information
+def verify_token(token: str = Depends(oauth2_scheme)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=["HS256"])
+        username: str = payload.get("sub")
+        if username is None:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+        token_data = {"username": username}
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except jwt.JWTError:
+        raise HTTPException(status_code=401, detail="Invalid token")
+    return token_data
 
+# Route to generate JWT token
+@app.post("/token")
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user_dict = fake_users_db.get(form_data.username)
+    if user_dict and form_data.password == "fakepassword":
+        # Generate JWT token
+        expiration = datetime.utcnow() + timedelta(minutes=TOKEN_EXPIRATION)
+        token_data = {"sub": form_data.username, "exp": expiration}
+        token = jwt.encode(token_data, SECRET_KEY, algorithm="HS256")
+        return {"access_token": token, "token_type": "bearer"}
+    raise HTTPException(status_code=401, detail="Incorrect username or password")
 
-def get_current_user(token: str = Depends(security)):
-    username, _ = token.split(":")
-    user = fake_users_db.get(username)
-
-    if not user:
-        raise HTTPException(
-            status_code = status.HTTP_401_UNAUTHORIZED,
-            detail = 'Invalid Credentials',
-            headers = {"WWW-Authenticate": "Bearer"}
-        )   
-    return user
-
-@app.get('users/me')
-def read_current_user(current_user : dict = Depends(get_current_user)):
-    return current_user
+# Example protected route
+@app.get("/users/me", response_model=User)
+async def read_users_me(current_user: User = Depends(verify_token)):
+    return fake_users_db[current_user["username"]]
 ```
 
-- **Explanation:** In this example, `OAuth2PasswordBearer` is used to define an authentication scheme using OAuth2 with password flow. The `get_current_user()` function verifies the JWT token and retrieves the current user from the mock database `(fake_users_db)`. The `read_current_user()` endpoint demonstrates accessing user information with authentication.
+- **User Database:** Here, `fake_users_db` simulates a user database with a single user for demonstration.
+- **Pydantic models:** `User` and `UserInDB` are Pydantic models used for type checking.
+- **OAuth2 Scheme:** `oauth2_scheme` is configured using `OAuth2PasswordBearer`, specifying the token URL `(/token)` for token retrieval.
+- **Token Verification:** `verify_token` function is a dependency that verifies and decodes the JWT token sent in the Authorization header of requests.
+- **Token Generation:** The `/token` endpoint (login function) handles user authentication. If the credentials are valid (fakepassword is the hardcoded password for demonstration), it generates a JWT token using jwt.encode.
+- **Protected Route:** The `/users/me` endpoint (read_users_me function) demonstrates a protected route that requires JWT token authentication (verify_token dependency). It returns user information based on the decoded JWT token and remains protected if try to access it without logging in or logging in with some other username or password.
+
+Now, if open up `Swagger UI`, and try to access the `/users/me` endpoint, it won't show anything and give an error message saying we are not authenticated.
+
+![Unautorized access](unauthorized.png)
+
+However, if we login (Use `Autheticate` at the top right hand side of Swagger) with the credentials, `johndoe` and `fakepasword`, we are able to generate our JWT token and thus are logged in and can now access our protected endpoint.
+
+![Authorized Access](authorized.png)
 
 ## Deployment Strategies for FASTApi
 Moving further, after building the app, it is also essential to be able to deploy it. FastAPI applications can be deployed using various deployment options, depending on scalability requirements, infrastructure preferences, and operational constraints. Here are some common deployment strategies.
@@ -121,24 +141,66 @@ For my learning purposes, I did not go in depth but still learned how to contain
 
 1. **Dockerfile:** Create a `Dockerfile` in your FastAPI project directory.
 ```Dockerfile
-FROM tiangolo/uvicorn-gunicorn-fastapi:python3.9
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
 
-COPY ./app /app
+# Set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends netcat-traditional \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt /app/
+RUN pip install --upgrade pip && pip install --no-cache-dir -r requirements.txt
+
+# Copy the FastAPI app code into the container
+COPY . /app/
+
+# Expose the port that FastAPI runs on
+EXPOSE 8000
+
+# Command to run the FastAPI application
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
 ```
 
-Replace `./app` with the path to your FastAPI application directory.
+2. Add a `requirements.txt` file in the FastAPI directory
+```requirements.txt
+fastapi
+uvicorn
+pyjwt
+prometheus-client
+```
 
 2. **Build Docker Image:** Build the docker image
 ```bash
-docker build -t fastapi-app
+docker build -t my-fastapi-app .
 ```
 
 3. **Run Docker Container:** Run the Docker container.
 ```bash
-docker run -d -p 80:80 fastapi-app
+docker run -d --name my-fastapi-container -p 8000:8000 my-fastapi-app
 ```
 
-Adjust `-p 80:80` to map the container port to a desired host port.
+4. The container should run without any issue and we can even monitor its health using:
+```bash
+sudo docker logs my-fastapi-container
+```
+
+![Running Docker Container](docker.png)
+
+5. To stop the container use:
+```bash
+docker stop my-fastapi-container
+```
 
 ## Continuous Integration and Delivery (CI/CD) for FastAPI
 Phewwww! Now that we've come all the way to deployment, I thought why not also add some CI/CD pipelines to it as it helps automate the building, testing and deployment processes, ensuring reliable and efficient software delivery.
@@ -250,37 +312,39 @@ REQUEST_COUNT = Counter("request_count", "Total count of requests", ["method", "
 REQUEST_LATENCY = Histogram("request_latency_seconds", "Request latency in seconds", ["method", "endpoint"])
 
 class PrometheusMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request, call_next):
-        path = request.url.path
-        method = request.method
+    async def dispatch(self, request : Response, call_next):
+        start_time = time.time()
         try:
             response = await call_next(request)
             status_code = response.status_code
             return response
+        except HTTPException as http_exc:
+            # Capture HTTPException to get status_code
+            status_code = http_exc.status_code
+            raise http_exc
+
         finally:
-            REQUEST_COUNT.labels(method=method, endpoint=path, status_code=status_code).inc()
-            latency = time.time() - request.scope["start_time"]
-            REQUEST_LATENCY.labels(method=method, endpoint=path).observe(latency)
+            REQUEST_COUNT.labels(method=request.method, endpoint=request.url.path, status_code=status_code).inc()
+            latency = time.time() - start_time
+            REQUEST_LATENCY.labels(method=request.method, endpoint=request.url.path).observe(latency)
 
 app.add_middleware(PrometheusMiddleware)
-```
-
-3. Expose Metrics Endpoint:
-```python
-from fastapi.responses import Response
 
 @app.get("/metrics")
 def get_metrics():
     return Response(generate_latest(), media_type=CONTENT_TYPE_LATEST)
 ```
 
-4. Instrument Endpoints:
-```python
-@app.get("/items/")
-async def read_items():
-    # Endpoint logic
-    return {"message": "Items retrieved successfully"}
-```
+![FastAPI Metrics](metrics.png)
+
+After this, we will be able to access our FastAPI metrics at the given endpoint. However, in order to understand it more efficiently, one can even use services like `Prometheus` and `Grafana`
 
 ## Conclusion
 And that's a wrap. Phewww.. While there is a lot to cover in FastAPI and certainly it can't be done in a single blog, I still attempted to atleast log some of the things which I learnt during this time of learning FastAPI. After all, this is not a book lol. Just a reference blog for me to look back to when I get stuck with something working with FastAPI again. I think it covers most of the basic stuff and just in case I missed out something, I can always go back and have a look at the FastAPI docs. For now, I'd say that FastAPI is truly amazing as for how easy it is to make and manage endpoints and deploying my ML apps to it. And the best part? It's fairly easy to learn too. It took me just 2 days to go through all this and I believe someone who works with Python will find it fairly easy to use. With that being said, I think that's all from my side regarding FastAPI for now. Until Next Time. Adios!
+
+## Appendix
+- [Code for this blog](main.py)
+- [Dockerfile Code](Dockerfile)
+- [GitHub Actions Code](fastapi.yaml)
+
+> Photo by [Data Scientist](https://datascientest.com/en/fastapi-everything-you-need-to-know-about-the-most-widely-used-python-web-framework-for-machine-learning)

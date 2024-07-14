@@ -9,9 +9,16 @@
     <lastBuildDate>Sat, 13 Jul 2024 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/rest/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide</title>
-      <link>http://localhost:1313/blogs/fastapi/</link>
+      <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2</title>
+      <link>http://localhost:1313/blogs/fastapi2/</link>
       <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/fastapi2/</guid>
+      <description>In the previous blog, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found around the internet. Note that these are completely optional and for just deploying a model, even the previous blog will suffice.</description>
+    </item>
+    <item>
+      <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1</title>
+      <link>http://localhost:1313/blogs/fastapi/</link>
+      <pubDate>Fri, 12 Jul 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blogs/fastapi/</guid>
       <description>Introduction to FastAPI Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&amp;rsquo;s type system and also cause I have been looking for some time for a way to deploy my ML applications easily and with minimalistic code as I&amp;rsquo;m not a web developer and struggle with that part.</description>
     </item>

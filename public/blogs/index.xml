@@ -13,7 +13,7 @@
       <link>http://localhost:1313/blogs/fastapi2/</link>
       <pubDate>Sat, 13 Jul 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/blogs/fastapi2/</guid>
-      <description>Advanced Features with FastAPI After learning how to be able to serve my models using FastAPI, I decided to extend it further in order to enhance the functionality, security and scalability of my API. For this, I read about additional topics like input validation, error handling and authentication, which although won&amp;rsquo;t be help me much for the purpose for which I initially started learning FastAPI, i.e., to make demo apps for my ML models, but they are crucial for developing production-ready APIs and so I thought about giving them a read too.</description>
+      <description>In the previous blog, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found around the internet. Note that these are completely optional and for just deploying a model, even the previous blog will suffice.</description>
     </item>
     <item>
       <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1</title>

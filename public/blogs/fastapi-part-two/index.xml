@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 on Sarthak Thakur</title>
+    <link>http://localhost:1313/blogs/fastapi-part-two/</link>
+    <description>Recent content in Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2 on Sarthak Thakur</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate></lastBuildDate>
+    <atom:link href="http://localhost:1313/blogs/fastapi-part-two/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>

@@ -348,6 +348,21 @@ params:
           - icon: fas fa-blog 
             url: /blogs/attention-is-all-you-need
 
+      - title: "PaliGemma: A versatile 3B VLM for transfer"
+        content: Paper implementation of Paligemma inspired by Umar Jamil. Currently a work in progress
+        image: /projects/paligemma.png
+        # featured:
+        #   name: Demo # Fixit
+        #   link: https://hugo-profile.netlify.app
+        badges:
+          - "VLM"
+          - "Code Follow Along"
+          - "Vision Model"
+          - "Transformers"
+        links:
+          - icon: fab fa-github
+            url: https://github.com/sarthak247/PaliGemma
+
       - title: 🐱 NekoPDF 📖 - Document Interaction with LLM
         content: |-
           A web app to seamlessly interact with your documents using a Large Language Model over the Langchain framework. Currently support OpenAI and a single PDF file at a time but an option for other LLM backends and multiple PDF files will be added soon.

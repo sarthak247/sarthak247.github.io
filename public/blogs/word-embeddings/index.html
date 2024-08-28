@@ -547,16 +547,13 @@ Unraveling the Power of Word Vectorization: From Text to Numbers | Sarthak Thaku
 <li><strong>Term Frequency (TF)</strong>: This component measures the frequency of a term (word) within a document. It rewards words that appear frequently within a document. It can be calculated as the ratio of the word&rsquo;s occurrences in a document to the total word count in that document.
 l</li>
 </ul>
-$$TF(term)=\frac{\text{Number of times term appears in a document}}{\text{Total number of items in the document}}$$
-<p>For example, consider our previous example <code>I love coding and coding is fun.</code> Here, TF(coding) is 1/6 as the word <code>and</code> has been ignored.</p>
+$$TF(term)=\frac{\text{Number of times term appears in a document}}{\text{Total number of items in the document}}$$<p>For example, consider our previous example <code>I love coding and coding is fun.</code> Here, TF(coding) is 1/6 as the word <code>and</code> has been ignored.</p>
 <ul>
 <li><strong>Inverse Document Frequeny</strong>: This component measures the rarity or importance of a word across all the documents. It is the log of the inverse of the document frequency where document frequency tells us the number of documents which contain a particular word.</li>
 </ul>
-$$DF(term)=\frac{\text{Documents containing our term}}{\text{Total number of documents}}$$
-<p>Thus, DF tells us about the proportion of documents which contain our word of interest. Thus, we inverse it to make sure that the more common a word is, example stopwords, the less score it gets and a logarithm is taken to dampen or reduce it&rsquo;s effect on the final calculation.</p>
+$$DF(term)=\frac{\text{Documents containing our term}}{\text{Total number of documents}}$$<p>Thus, DF tells us about the proportion of documents which contain our word of interest. Thus, we inverse it to make sure that the more common a word is, example stopwords, the less score it gets and a logarithm is taken to dampen or reduce it&rsquo;s effect on the final calculation.</p>
 <!-- raw HTML omitted -->
-$$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents containing our term}}\bigg)}$$
-<p>Thus, Inverse Document Frequency (IDF) is a measure of how unique or significant a word is across a collection of documents. It can be computed as the logarithm of the total number of documents divided by the number of documents in which the word occurs, effectively quantifying the word&rsquo;s rarity and importance in the entire document collection.</p>
+$$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents containing our term}}\bigg)}$$<p>Thus, Inverse Document Frequency (IDF) is a measure of how unique or significant a word is across a collection of documents. It can be computed as the logarithm of the total number of documents divided by the number of documents in which the word occurs, effectively quantifying the word&rsquo;s rarity and importance in the entire document collection.</p>
 <h3 id="pros-2">Pros</h3>
 <ol>
 <li>

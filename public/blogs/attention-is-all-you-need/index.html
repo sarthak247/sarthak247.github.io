@@ -28,9 +28,6 @@
 
 
 
-  
-
-
 <meta property="og:url" content="http://localhost:1313/blogs/attention-is-all-you-need/">
   <meta property="og:site_name" content="Sarthak Thakur">
   <meta property="og:title" content="Attention Is All You Need - From where it all started">
@@ -381,38 +378,38 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
 </li>
 </ol>
 <table>
-<thead>
-<tr>
-<th>Original Sentence Token</th>
-<th>Input ID (vocabulary position)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Your</td>
-<td>105</td>
-</tr>
-<tr>
-<td>cat</td>
-<td>6587</td>
-</tr>
-<tr>
-<td>is</td>
-<td>5475</td>
-</tr>
-<tr>
-<td>a</td>
-<td>3578</td>
-</tr>
-<tr>
-<td>lovely</td>
-<td>65</td>
-</tr>
-<tr>
-<td>cat</td>
-<td>6578</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Original Sentence Token</th>
+          <th>Input ID (vocabulary position)</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Your</td>
+          <td>105</td>
+      </tr>
+      <tr>
+          <td>cat</td>
+          <td>6587</td>
+      </tr>
+      <tr>
+          <td>is</td>
+          <td>5475</td>
+      </tr>
+      <tr>
+          <td>a</td>
+          <td>3578</td>
+      </tr>
+      <tr>
+          <td>lovely</td>
+          <td>65</td>
+      </tr>
+      <tr>
+          <td>cat</td>
+          <td>6578</td>
+      </tr>
+  </tbody>
 </table>
 <ol start="4">
 <li>These input IDs are then transformed into embeddings of a fixed size, typically 512 in dimension.
@@ -537,73 +534,73 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
 <li>To enforce this restriction of not allowing the model to see future words, we replace all future positions with \(-\infty\), as previously discussed.</li>
 </ol>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>Your</th>
-<th>Cat</th>
-<th>Is</th>
-<th>A</th>
-<th>Lovely</th>
-<th>Cat</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Your</td>
-<td></td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-</tr>
-<tr>
-<td>Cat</td>
-<td></td>
-<td></td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-</tr>
-<tr>
-<td>Is</td>
-<td></td>
-<td></td>
-<td></td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-</tr>
-<tr>
-<td>A</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>\(-\infty\)</td>
-<td>\(-\infty\)</td>
-</tr>
-<tr>
-<td>Lovely</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td>\(-\infty\)</td>
-</tr>
-<tr>
-<td>Cat</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>Your</th>
+          <th>Cat</th>
+          <th>Is</th>
+          <th>A</th>
+          <th>Lovely</th>
+          <th>Cat</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Your</td>
+          <td></td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+      </tr>
+      <tr>
+          <td>Cat</td>
+          <td></td>
+          <td></td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+      </tr>
+      <tr>
+          <td>Is</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+      </tr>
+      <tr>
+          <td>A</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>\(-\infty\)</td>
+          <td>\(-\infty\)</td>
+      </tr>
+      <tr>
+          <td>Lovely</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td>\(-\infty\)</td>
+      </tr>
+      <tr>
+          <td>Cat</td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+  </tbody>
 </table>
 <p>When we apply softmax on this masked attention matrix, the relations between words denoted by \(-\infty\) effectively become zero. This masking mechanism ensures that the model does not attend to future words.</p>
 <ol start="3">
@@ -674,8 +671,7 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
 <li><a href="attention_notes.pdf">Handwritten Notes</a></li>
 </ol>
 <blockquote>
-<p>Photo by <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p>
-</blockquote>
+<p>Photo by <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p></blockquote>
 
           </article>
         </div>
@@ -872,7 +868,7 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
                         <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2">Building Efficient ML …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>In the previous blog, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p>
+                        <p><p>In the <a href="../fastapi">previous blog</a>, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -896,7 +892,8 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
                         <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1">Building Efficient ML …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>Introduction to FastAPI Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&rsquo;s type system and also cause I have been looking for some time …</p>
+                        <p><h2 id="introduction-to-fastapi">Introduction to FastAPI</h2>
+<p>Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&rsquo;s type system and also cause I have been looking for some time …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -920,7 +917,8 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
                         <h5 class="card-title bg-transparent" title="Attention Is All You Need - From where it all started">Attention Is All You Need …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>Introduction In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from arXiv, the volume of papers tagged under LLM averages nine submissions daily. To comprehend these …</p>
+                        <p><h2 id="introduction">Introduction</h2>
+<p>In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from <code>arXiv</code>, the volume of papers tagged under <code>LLM</code> averages nine submissions daily. To comprehend these …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -1000,7 +998,7 @@ Attention Is All You Need - From where it all started | Sarthak Thakur
                     </a>
                 </div>
             
-            &copy; 2024  All rights reserved
+            &copy; 2025  All rights reserved
             <div class="text-secondary">
                 Made with
                 <span class="text-danger">

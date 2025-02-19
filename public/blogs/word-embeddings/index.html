@@ -28,9 +28,6 @@
 
 
 
-  
-
-
 <meta property="og:url" content="http://localhost:1313/blogs/word-embeddings/">
   <meta property="og:site_name" content="Sarthak Thakur">
   <meta property="og:title" content="Unraveling the Power of Word Vectorization: From Text to Numbers">
@@ -341,22 +338,22 @@ Unraveling the Power of Word Vectorization: From Text to Numbers | Sarthak Thaku
 <p>To begin with, I started with the simplest method out there which was one-hot encoding. It takes each word in a given text and transforms it into a binary vector of 1s and 0s, where 1 means that a word is present in a sample and 0 means that it&rsquo;s not. To understand it, I started out with a simple example.</p>
 <p>Let&rsquo;s consider the following three sentences:</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>Sample</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.</td>
-<td>I love coding and coding is fun</td>
-</tr>
-<tr>
-<td>2.</td>
-<td>Programming is fascinating</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>Sample</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1.</td>
+          <td>I love coding and coding is fun</td>
+      </tr>
+      <tr>
+          <td>2.</td>
+          <td>Programming is fascinating</td>
+      </tr>
+  </tbody>
 </table>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> pandas <span style="color:#66d9ef">as</span> pd
 </span></span><span style="display:flex;"><span>
@@ -380,34 +377,34 @@ Unraveling the Power of Word Vectorization: From Text to Numbers | Sarthak Thaku
 </span></span><span style="display:flex;"><span>print(df)
 </span></span></code></pre></div><p>The output of the above code is as follows:</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>fascinating</th>
-<th>coding</th>
-<th>programming</th>
-<th>fun</th>
-<th>love</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>I love coding and coding is fun</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-</tr>
-<tr>
-<td>Programming is fascinating</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>fascinating</th>
+          <th>coding</th>
+          <th>programming</th>
+          <th>fun</th>
+          <th>love</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>I love coding and coding is fun</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>Programming is fascinating</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>0</td>
+      </tr>
+  </tbody>
 </table>
 <p>However, as simple and intuitive this method may seem like there are some associated pros and cons with it which is why it is not used much in modern practices.</p>
 <h3 id="pros">Pros</h3>
@@ -463,40 +460,40 @@ Unraveling the Power of Word Vectorization: From Text to Numbers | Sarthak Thaku
 </span></span><span style="display:flex;"><span>print(count_vectors)
 </span></span></code></pre></div><p>The output of the above code will be as follows:</p>
 <table>
-<thead>
-<tr>
-<th></th>
-<th>and</th>
-<th>coding</th>
-<th>fascinating</th>
-<th>fun</th>
-<th>is</th>
-<th>love</th>
-<th>programming</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>I love coding and coding is fun</td>
-<td>1</td>
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>Programming is fascinating</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th></th>
+          <th>and</th>
+          <th>coding</th>
+          <th>fascinating</th>
+          <th>fun</th>
+          <th>is</th>
+          <th>love</th>
+          <th>programming</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>I love coding and coding is fun</td>
+          <td>1</td>
+          <td>2</td>
+          <td>0</td>
+          <td>1</td>
+          <td>1</td>
+          <td>1</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>Programming is fascinating</td>
+          <td>0</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+          <td>0</td>
+          <td>1</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="pros-1">Pros</h3>
 <ol>
@@ -552,7 +549,6 @@ $$TF(term)=\frac{\text{Number of times term appears in a document}}{\text{Total 
 <li><strong>Inverse Document Frequeny</strong>: This component measures the rarity or importance of a word across all the documents. It is the log of the inverse of the document frequency where document frequency tells us the number of documents which contain a particular word.</li>
 </ul>
 $$DF(term)=\frac{\text{Documents containing our term}}{\text{Total number of documents}}$$<p>Thus, DF tells us about the proportion of documents which contain our word of interest. Thus, we inverse it to make sure that the more common a word is, example stopwords, the less score it gets and a logarithm is taken to dampen or reduce it&rsquo;s effect on the final calculation.</p>
-<!-- raw HTML omitted -->
 $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents containing our term}}\bigg)}$$<p>Thus, Inverse Document Frequency (IDF) is a measure of how unique or significant a word is across a collection of documents. It can be computed as the logarithm of the total number of documents divided by the number of documents in which the word occurs, effectively quantifying the word&rsquo;s rarity and importance in the entire document collection.</p>
 <h3 id="pros-2">Pros</h3>
 <ol>
@@ -609,8 +605,7 @@ $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents c
 <li><a href="https://neptune.ai/blog/vectorization-techniques-in-nlp-guide">Vectorization Techniques in NLP</a></li>
 </ol>
 <blockquote>
-<p>Photo by <a href="https://projector.tensorflow.org/?_gl=1*1vlx0lq*_ga*MTI1OTYyNTE5NS4xNjYyOTc4NjE4*_ga_W0YLR4190T*MTY5MzkwMjgxMi40LjEuMTY5MzkwMzMyOS4wLjAuMA..">Embedding Projector</a> on <a href="https://www.tensorflow.org/text/tutorials/word2vec">TensorFlow</a></p>
-</blockquote>
+<p>Photo by <a href="https://projector.tensorflow.org/?_gl=1*1vlx0lq*_ga*MTI1OTYyNTE5NS4xNjYyOTc4NjE4*_ga_W0YLR4190T*MTY5MzkwMjgxMi40LjEuMTY5MzkwMzMyOS4wLjAuMA..">Embedding Projector</a> on <a href="https://www.tensorflow.org/text/tutorials/word2vec">TensorFlow</a></p></blockquote>
 
           </article>
         </div>
@@ -792,7 +787,7 @@ $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents c
                         <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2">Building Efficient ML …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>In the previous blog, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p>
+                        <p><p>In the <a href="../fastapi">previous blog</a>, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -816,7 +811,8 @@ $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents c
                         <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1">Building Efficient ML …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>Introduction to FastAPI Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&rsquo;s type system and also cause I have been looking for some time …</p>
+                        <p><h2 id="introduction-to-fastapi">Introduction to FastAPI</h2>
+<p>Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&rsquo;s type system and also cause I have been looking for some time …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -840,7 +836,8 @@ $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents c
                         <h5 class="card-title bg-transparent" title="Attention Is All You Need - From where it all started">Attention Is All You Need …</h5>
                     </a>
                     <div class="card-text secondary-font">
-                        <p>Introduction In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from arXiv, the volume of papers tagged under LLM averages nine submissions daily. To comprehend these …</p>
+                        <p><h2 id="introduction">Introduction</h2>
+<p>In the current landscape of Generative Artificial Intelligence (GenAI), new architectures and methodologies emerge with remarkable frequency. According to recent statistics from <code>arXiv</code>, the volume of papers tagged under <code>LLM</code> averages nine submissions daily. To comprehend these …</p></p>
                     </div>
                 </div>
                 <div class="mt-auto card-footer">
@@ -920,7 +917,7 @@ $$IDF(term)=\log{\bigg(\frac{\text{Total number of documents}}{\text{Documents c
                     </a>
                 </div>
             
-            &copy; 2024  All rights reserved
+            &copy; 2025  All rights reserved
             <div class="text-secondary">
                 Made with
                 <span class="text-danger">

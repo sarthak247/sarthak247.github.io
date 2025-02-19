@@ -2,6 +2,7 @@ baseURL: "https://www.sarthak247.github.io"
 languageCode: "en-us"
 title: "Sarthak Thakur"
 theme: hugo-profile
+ignoreLogs: ['warning-goldmark-raw-html']
 
 outputs:
   home:
@@ -12,7 +13,11 @@ outputs:
     - "HTML"
     - "RSS"
 
-Paginate: 3
+# Paginate: 3
+pagination:
+  disableAliases: false
+  pagerSize: 10
+  path: page
 enableRobotsTXT: true
 # disqusShortname: your-disqus-shortname
 # googleAnalytics: G-MEASUREMENT_ID
@@ -191,6 +196,21 @@ params:
     enable: true
     # title: "Custom Name"
     items:
+      - job: "Machine Learning Engineer"
+        company: "Rising Sun Pictures"
+        companyUrl: "https://www.rsp.com.au/"
+        date: "November 2024 - Present"
+        featuredLink:
+          enable: false
+          name: "Project Report"
+          url: /files/reports/crest.pdf
+        content: |
+          - Researched and optimized diffusion models for high-quality image and video synthesis.
+          - Accelerated ML pipelines, reducing generation time via model distillation, quantization, and caching.
+          - Researched on enhancing text-to-image and video generation using latent space optimization and diffusion techniques.
+          - Fine-tuned deep learning models for efficient deployment in VFX production.
+          - Collaborated with cross-functional teams to integrate AI-driven tools into existing workflows.
+      
       - job: "Research Assistant"
         company: "CREST"
         companyUrl: "https://crest-centre.net/"

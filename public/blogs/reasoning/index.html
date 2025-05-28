@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html>
+
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta http-equiv="Accept-CH" content="DPR, Viewport-Width, Width">
+<link rel="icon" href=./favicon.png type="image/gif">
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      media="print" onload="this.media='all'" />
+<noscript>
+  <link
+          href="https://fonts.googleapis.com/css2?family=Alata&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+          rel="stylesheet">
+</noscript>
+
+
+<link rel="stylesheet" href="/css/font.css" media="all">
+
+
+
+<meta property="og:url" content="http://localhost:1313/blogs/reasoning/">
+  <meta property="og:site_name" content="Sarthak Thakur">
+  <meta property="og:title" content="Cracking the Code of LLM Reasoning - From Patterns to Thought Chains">
+  <meta property="og:description" content="What sets apart a reasoning LLM from a normal LLM? Can LLMs even reason? What can be done to make them reason better?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="blogs">
+    <meta property="article:published_time" content="2025-05-21T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-05-21T00:00:00+00:00">
+    <meta property="article:tag" content="Reasoning">
+    <meta property="article:tag" content="Chain of Thought">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Cracking the Code of LLM Reasoning - From Patterns to Thought Chains">
+  <meta name="twitter:description" content="What sets apart a reasoning LLM from a normal LLM? Can LLMs even reason? What can be done to make them reason better?">
+
+
+<link rel="stylesheet" href="/bootstrap-5/css/bootstrap.min.css" media="all"><link rel="stylesheet" href="/css/header.css" media="all">
+<link rel="stylesheet" href="/css/footer.css" media="all">
+
+
+<link rel="stylesheet" href="/css/theme.css" media="all">
+
+<style>
+    :root {
+        --text-color: #343a40;
+        --text-secondary-color: #6c757d;
+        --background-color: #eaedf0;
+        --secondary-background-color: #64ffda1a;
+        --primary-color: #007bff;
+        --secondary-color: #f8f9fa;
+
+         
+        --text-color-dark: #e4e6eb;
+        --text-secondary-color-dark: #b0b3b8;
+        --background-color-dark: #18191a;
+        --secondary-background-color-dark: #212529;
+        --primary-color-dark: #ffffff;
+        --secondary-color-dark: #212529;
+    }
+    body {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: left;
+    }
+
+    html {
+        background-color: var(--background-color) !important;
+    }
+
+    body::-webkit-scrollbar {
+        height: 0px;
+        width: 8px;
+        background-color: var(--background-color);
+    }
+
+    ::-webkit-scrollbar-track {
+        border-radius: 1rem;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        border-radius: 1rem;
+        background: #b0b0b0;
+        outline: 1px solid var(--background-color);
+    }
+
+    #search-content::-webkit-scrollbar {
+        width: .5em;
+        height: .1em;
+        background-color: var(--background-color);
+    }
+</style>
+
+
+
+<meta name="description" content="What sets apart a reasoning LLM from a normal LLM? Can LLMs even reason? What can be done to make them reason better?">
+<link rel="stylesheet" href="/css/single.css">
+
+
+<script defer src="/fontawesome-6/all-6.4.2.js"></script>
+
+
+  
+  
+
+  <title>
+Cracking the Code of LLM Reasoning - From Patterns to Thought Chains | Sarthak Thakur
+
+  </title>
+</head>
+
+<body class="light">
+  
+  
+<script>
+    let localStorageValue = localStorage.getItem("pref-theme");
+    let mediaQuery = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    switch (localStorageValue) {
+        case "dark":
+            document.body.classList.add('dark');
+            break;
+        case "light":
+            document.body.classList.remove('dark');
+            break;
+        default:
+            if (mediaQuery) {
+                document.body.classList.add('dark');
+            }
+            break;
+    }
+</script>
+
+
+
+
+<script>
+    var prevScrollPos = window.pageYOffset;
+    window.addEventListener("scroll", function showHeaderOnScroll() {
+        let profileHeaderElem = document.getElementById("profileHeader");
+        let currentScrollPos = window.pageYOffset;
+        let resetHeaderStyle = false;
+        let showNavBarOnScrollUp =  true ;
+        let showNavBar = showNavBarOnScrollUp ? prevScrollPos > currentScrollPos : currentScrollPos > 0;
+        if (showNavBar) {
+            profileHeaderElem.classList.add("showHeaderOnTop");
+        } else {
+            resetHeaderStyle = true;
+        }
+        if(currentScrollPos === 0) {
+            resetHeaderStyle = true;
+        }
+        if(resetHeaderStyle) {
+            profileHeaderElem.classList.remove("showHeaderOnTop");
+        }
+        prevScrollPos = currentScrollPos;
+    });
+</script>
+
+
+
+<header id="profileHeader">
+    <nav class="pt-3 navbar navbar-expand-lg animate">
+        <div class="container-fluid mx-xs-2 mx-sm-5 mx-md-5 mx-lg-5">
+            
+            <a class="navbar-brand primary-font text-wrap" href="/">
+                
+                <img src="./favicon.png" width="30" height="30"
+                    class="d-inline-block align-top">
+                Sarthak Thakur
+                
+            </a>
+
+            
+                <div>
+                    <input id="search" autocomplete="off" class="form-control mr-sm-2 d-none d-md-block" placeholder='Ctrl &#43; k to Search...'
+                        aria-label="Search" oninput="searchOnChange(event)">
+                </div>
+            
+
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                <svg aria-hidden="true" height="24" viewBox="0 0 16 16" version="1.1" width="24" data-view-component="true">
+                    <path fill-rule="evenodd" d="M1 2.75A.75.75 0 011.75 2h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 2.75zm0 5A.75.75 0 011.75 7h12.5a.75.75 0 110 1.5H1.75A.75.75 0 011 7.75zM1.75 12a.75.75 0 100 1.5h12.5a.75.75 0 100-1.5H1.75z"></path>
+                </svg>
+            </button>
+
+            
+            <div class="collapse navbar-collapse text-wrap primary-font" id="navbarContent">
+                <ul class="navbar-nav ms-auto text-center">
+                    
+                        <li class="nav-item navbar-text d-block d-md-none">
+                            <div class="nav-link">
+                                <input id="search" autocomplete="off" class="form-control mr-sm-2" placeholder='Ctrl &#43; k to Search...' aria-label="Search" oninput="searchOnChange(event)">
+                            </div>
+                        </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#about" aria-label="about">
+                            About Me
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#experience"
+                            aria-label="experience">
+                            Experience
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#education"
+                            aria-label="education">
+                            Education
+                        </a>
+                    </li>
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#projects"
+                            aria-label="projects">
+                            Projects
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/#contact"
+                            aria-label="contact">
+                            Contact
+                        </a>
+                    </li>
+                    
+
+                    
+
+                    
+                    
+                    
+                    
+                    <li class="nav-item navbar-text">
+                        <a class="nav-link" href="/blogs" title="Blog posts">
+                            
+                            Blog
+                        </a>
+                    </li>
+                    
+                    
+
+                    
+                    <li class="nav-item navbar-text">
+                        
+                        <div class="text-center">
+                            <button id="theme-toggle">
+                                <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                                </svg>
+                                <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <circle cx="12" cy="12" r="5"></circle>
+                                    <line x1="12" y1="1" x2="12" y2="3"></line>
+                                    <line x1="12" y1="21" x2="12" y2="23"></line>
+                                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                                    <line x1="1" y1="12" x2="3" y2="12"></line>
+                                    <line x1="21" y1="12" x2="23" y2="12"></line>
+                                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                                </svg>
+                            </button>
+                        </div>
+                    </li>
+                    
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="content">
+<section id="single">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-sm-12 col-md-12 col-lg-9">
+        <div class="pr-lg-4">
+          <div class="title mb-5">
+            <h1 class="text-center mb-4">Cracking the Code of LLM Reasoning - From Patterns to Thought Chains</h1>
+            <div class="text-center">
+              
+              May 21, 2025
+
+              
+              <span id="readingTime">
+                min read
+              </span>
+              
+            </div>
+          </div>
+          
+          <div class="featured-image">
+            <img class="img-fluid mx-auto d-block" src="/blogs/reasoning/Gemini_Generated_Image_LLM_Reasoning.png" alt="Cracking the Code of LLM Reasoning - From Patterns to Thought Chains">
+          </div>
+          
+          <article class="page-content  p-2">
+          <h2 id="motivation">Motivation</h2>
+<p>Large Language Models (LLMs) are reshaping how we interact with technology—whether it&rsquo;s writing code, planning a trip, conducting web searches, or even solving high school math problems (to some extent). In many of these tasks, LLMs appear to <em>think</em>. But is that genuine reasoning&hellip; or just high-quality guesswork?</p>
+<p>In this blog, I’ll explore what it really means for an LLM to &ldquo;reason.&rdquo; I’ll look at how reasoning is evaluated, the techniques used to improve it, and the current state of the art. More importantly, I’ll dive into the challenges we still face and where future innovation might lie.</p>
+<h2 id="from-where-it-all-began">From Where It All Began</h2>
+<p>Reasoning has long been a thorny problem in machine learning. Over the years, researchers have proposed many approaches to tackle it—each promising, but ultimately falling short. Some notable efforts include:</p>
+<ul>
+<li>Semi-supervised learning</li>
+<li>Bayesian Non-Parametric</li>
+<li>Kernel Machines</li>
+<li>Sparsity</li>
+<li>Low Rank</li>
+<li>Active Learning</li>
+<li>and much more&hellip;
+But despite all the clever math and engineering, they all had one thing in common:</li>
+</ul>
+<blockquote>
+<p>They failed to truly crack reasoning.</p></blockquote>
+<h2 id="so-whats-missing">So, What&rsquo;s Missing?</h2>
+<p>The missing piece? <strong>Reasoning itself.</strong></p>
+<p>Most LLMs—and AI models in general—struggle not with computation, but with the <strong>ability to generalize from a few examples</strong>, to adapt flexibly, and to <em>reason</em>. That’s something humans do effortlessly: infer, extrapolate, and make decisions from limited information.</p>
+<p>To illustrate this point, let’s walk through a simple toy example. We ask the model to extract the <strong>last letter</strong> from both the <strong>first and last name</strong> of a person and concatenate them. Why not use the <em>first</em> letters? Because that’s too easy—LLMs have likely seen patterns like that in training. But last letters? That’s more novel.</p>
+<table>
+  <thead>
+      <tr>
+          <th>Input</th>
+          <th>Output</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Elon Musk</td>
+          <td>nk</td>
+      </tr>
+      <tr>
+          <td>Bill Gates</td>
+          <td>ls</td>
+      </tr>
+      <tr>
+          <td>Barack Obama</td>
+          <td>??</td>
+      </tr>
+  </tbody>
+</table>
+<p>For a human, the pattern is almost trivial: pick the last letter of each name and stick them together. But for an LLM? Things aren’t quite so straightforward.</p>
+<ol>
+<li>
+<p><strong>Solution 1 - Few-Shot Prompting:</strong> Let&rsquo;s try a few-shot prompt:</p>
+<pre tabindex="0"><code>PROMPT:
+Q: Elon Musk
+A: nk
+Q: Bill Gates
+A: ls
+Q: Barack Obama
+A: 
+</code></pre><pre tabindex="0"><code>ANSWER:
+ck
+</code></pre><p><strong>ck??</strong> Seriously?? The model focused only on the first name (&ldquo;Barack&rdquo; → &ldquo;ck&rdquo;) and ignored &ldquo;Obama&rdquo; completely. So much for intelligence, right? It’s just pattern-matching—no real understanding or reasoning is going on.</p>
+</li>
+<li>
+<p><strong>Solution 2 - Add Intermediate Steps:</strong> What if we guide the model step-by-step? Maybe it just needs a little <em>direction</em>.</p>
+<p>Let’s rewrite the prompt to walk it through some intermediate steps:</p>
+<pre tabindex="0"><code>PROMPT:
+Q: Elon Musk
+A: The last letter of Elon is n. The last letter of Musk is k. So concatenating them together gives us nk. Thus, the answer is nk.
+
+Q: Barack Obama
+A:
+</code></pre><pre tabindex="0"><code>ANSWER:
+The last letter of Barack is k. The last letter of Obama is a. So concatenating them together gives us ka. Thus, the answer is ka.
+</code></pre><p><strong>Boom!</strong> That works. Turns out LLMs aren’t dumb—they’re just easily confused. When we prompt them with intermediate steps, they begin to reason (or atleast that&rsquo;s what the literature wants us to believe).</p>
+<ul>
+<li><a href="https://arxiv.org/abs/2310.01798">Large Language Models Cannot Self-Correct Reasoning Yet</a> - Shows that LLMs still struggle to reflect and fix errors independently</li>
+<li><a href="https://arxiv.org/abs/1705.04146">Program Induction by Rationale Generation : Learning to Solve and Explain Algebraic Word Problems</a> Add intermediate steps to the training data.</li>
+<li><a href="https://arxiv.org/abs/2110.14168">Training Verifiers to Solve Math Word Problems</a> - Add intermediate steps during the finetuning stage (used for finetuning GPT-3)</li>
+<li><a href="https://arxiv.org/abs/2112.00114">Show Your Work: Scratchpads for Intermediate Computation with Language Models</a> - Essentially what we did above, ie, prompting with reasoning steps.</li>
+<li><a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a> - The GOAT paper for Reasoning by Denny Zhou which tied all these together and formally introduced the Chain-of-Thought term.</li>
+</ul>
+</li>
+</ol>
+<blockquote>
+<p>Conclusion: Regardless of training, finetuning or prompting, when provided with examples that include intermediate steps, LLMs will respond with intermediate steps.</p></blockquote>
+<h2 id="are-reasoning-steps-even-helpful">Are reasoning steps even helpful?</h2>
+<p>What we just saw above is something termed as Chain Of Thought (CoT) or trying to add reasoning in the form of natual language and it can dramatically increase LLM performance on certain tasks. But here&rsquo;s the real question:</p>
+<blockquote>
+<p><strong>Is this actually reasoning, or are we just helping the model stumble forward by spoon-feeding it logic in natural language?</strong></p></blockquote>
+<p>To some extent, <strong>yes</strong>, it works - at least pragmatically. And this idea gets more formal backing in a recent paper - <a href="https://arxiv.org/abs/2402.12875">Chain of Thought Empowers Transformers to Solve Inherently Serial Problems</a>.
+Here&rsquo;s the gist:</p>
+<ol>
+<li><strong>✦ Claim:</strong> Constant-depth transforers can solve any inherently serial problem as it generates sufficiently long intermediate reasoning steps!
+<ul>
+<li>😐 Wait, what? That feels like a cop-out. Sure — if you let a model ramble on long enough, it’ll eventually land somewhere near the target. But that’s not intelligence. That’s <strong>brute-force trial-and-error wrapped in verbose packaging.</strong> The idea that longer chains = better reasoning feels shaky, and in my opinion, this approach may not be the path forward.</li>
+</ul>
+</li>
+<li><strong>✦ Claim:</strong> Transformers which directly generate final answers either requires a huge depth to solve or cannot solve at all!
+<ul>
+<li>That’s&hellip; kind of damning. It shows that <strong>Transformers struggle with multi-step reasoning by design</strong> — unless we walk them through it explicitly. And let’s not forget: the Transformer wasn’t built to reason. It was built for <strong>machine translation.</strong> The architecture was never meant to reflect logic or cognition. Sure, we can bolt on reasoning heads, add rationale-based supervision, or inject scratchpads and verifiers — but all of that is a patch on a foundational problem:</li>
+</ul>
+<blockquote>
+<p>Transformers can mimic reasoning — but they still don’t actually <em>reason</em>. At least not yet</p></blockquote>
+</li>
+</ol>
+<h2 id="so-whats-next">So What&rsquo;s Next?</h2>
+<p>If we agree that current LLMs are just <em>faking it till they make it</em> — mimicking reasoning rather than truly doing it — then where do we go from here?</p>
+<p>I believe we need to <strong>go back to the drawing board</strong> — not just scaling up Transformers or adding more verbose prompts, but <strong>reimagining the architecture and paradigm itself.</strong></p>
+<p>Here are a few directions that I think hold actual promise:</p>
+<ul>
+<li>
+<p>Graph-Based Models 🧠
+Unlike flat sequences, graphs offer inherent <strong>structure and relationships.</strong> That structural bias could help encode reasoning chains more explicitly — think nodes as concepts and edges as logical links. There&rsquo;s real potential here for moving beyond pattern-matching.</p>
+</li>
+<li>
+<p>Memory-Driven Reasoning 💾
+The idea of persistent memory — like what Meta’s <strong>Segment Anything Model (SAM)</strong> toyed with — could be transformative. Rather than treating each prompt as a clean slate, models should <strong>retain and retrieve contextual knowledge</strong> in a way that feels intentional, not incidental.</p>
+</li>
+<li>
+<p>Reinforcement Learning, Done Right 🎯
+RL has shown flashes of brilliance (think AlphaGo, CICERO), but its fusion with LLMs has been underwhelming so far. We need <strong>RL that incentivizes consistent, multi-step logic</strong> — not just reward hacks or instruction following.</p>
+</li>
+<li>
+<p>Agentic Pathways (That Actually Think) 🤖
+Everyone’s building “agents” these days, but most of them just chain prompts together and slap on some tool usage. That’s not reasoning — that’s <strong>workflow automation in disguise.</strong> The next generation of agents should be <strong>explicitly designed to model beliefs, goals, and inference</strong>, not just regurgitate natural language.</p>
+</li>
+<li>
+<p>Persona-Based LLMs 🧬
+One-size-fits-all LLMs are bland. <strong>Personalized models</strong> — ones that adapt to users&rsquo; thought styles, contexts, or even learning curves — might not just improve UX, but also unlock better reasoning by leveraging consistent mental models.</p>
+</li>
+</ul>
+<blockquote>
+<p>In short: Let’s stop retrofitting Transformers and start <strong>building models that reason by design</strong>, not by accident.</p></blockquote>
+<h2 id="appendix">Appendix</h2>
+<ul>
+<li><a href="https://arxiv.org/abs/2310.01798">Large Language Models Cannot Self-Correct Reasoning Yet</a></li>
+<li><a href="https://arxiv.org/abs/1705.04146">Program Induction by Rationale Generation : Learning to Solve and Explain Algebraic Word Problems</a></li>
+<li><a href="https://arxiv.org/abs/2110.14168">Training Verifiers to Solve Math Word Problems</a></li>
+<li><a href="https://arxiv.org/abs/2112.00114">Show Your Work: Scratchpads for Intermediate Computation with Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2201.11903">Chain-of-Thought Prompting Elicits Reasoning in Large Language Models</a></li>
+<li><a href="https://arxiv.org/abs/2402.12875">Chain of Thought Empowers Transformers to Solve Inherently Serial Problems</a></li>
+<li>and many more but I forgot where I read them sigh&hellip;</li>
+</ul>
+<blockquote>
+<p>Photo by <a href="https://gemini.google.com/app">Google Gemini</a> - Prompt: <code>a cartoonish image of LLM which is reasoning</code></p></blockquote>
+
+          </article>
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-3">
+        <div id="stickySideBar" class="sticky-sidebar">
+          
+          <aside class="toc">
+              <h5>
+                Table Of Contents
+              </h5>
+              <div class="toc-content">
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#motivation">Motivation</a></li>
+    <li><a href="#from-where-it-all-began">From Where It All Began</a></li>
+    <li><a href="#so-whats-missing">So, What&rsquo;s Missing?</a></li>
+    <li><a href="#are-reasoning-steps-even-helpful">Are reasoning steps even helpful?</a></li>
+    <li><a href="#so-whats-next">So What&rsquo;s Next?</a></li>
+    <li><a href="#appendix">Appendix</a></li>
+  </ul>
+</nav>
+              </div>
+          </aside>
+          
+
+          
+          <aside class="tags">
+            <h5>Tags</h5>
+            <ul class="tags-ul list-unstyled list-inline">
+              
+              <li class="list-inline-item"><a href="http://localhost:1313/tags/reasoning"
+                target="_blank"
+              >Reasoning</a></li>
+              
+              <li class="list-inline-item"><a href="http://localhost:1313/tags/chain-of-thought"
+                target="_blank"
+              >Chain of Thought</a></li>
+              
+            </ul>
+          </aside>
+          
+
+          
+          <aside class="social">
+            <h5>Social</h5>
+            <div class="social-content">
+              <ul class="list-inline">
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2flocalhost%3a1313%2fblogs%2freasoning%2f">
+                    <i class="fab fa-linkedin"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://twitter.com/share?text=Cracking%20the%20Code%20of%20LLM%20Reasoning%20-%20From%20Patterns%20to%20Thought%20Chains&url=http%3a%2f%2flocalhost%3a1313%2fblogs%2freasoning%2f">
+                    <i class="fab fa-twitter"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href="https://api.whatsapp.com/send?text=Cracking%20the%20Code%20of%20LLM%20Reasoning%20-%20From%20Patterns%20to%20Thought%20Chains: http%3a%2f%2flocalhost%3a1313%2fblogs%2freasoning%2f">
+                    <i class="fab fa-whatsapp"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item text-center">
+                  <a target="_blank" href='mailto:?subject=Cracking%20the%20Code%20of%20LLM%20Reasoning%20-%20From%20Patterns%20to%20Thought%20Chains&amp;body=Check%20out%20this%20site http%3a%2f%2flocalhost%3a1313%2fblogs%2freasoning%2f'>
+                    <i class="fa fa-envelope"></i>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </aside>
+          
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 col-md-12 col-lg-9 p-4">
+        
+      </div>
+    </div>
+  </div>
+  <button class="p-2 px-3" onclick="topFunction()" id="topScroll">
+    <i class="fas fa-angle-up"></i>
+  </button>
+</section>
+
+
+<div class="progress">
+  <div id="scroll-progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
+<Script src="/js/scrollProgressBar.js"></script>
+
+
+<script>
+  var topScroll = document.getElementById("topScroll");
+  window.onscroll = function() {scrollFunction()};
+
+  function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+      topScroll.style.display = "block";
+    } else {
+      topScroll.style.display = "none";
+    }
+  }
+
+  function topFunction() {
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+  }
+
+  
+  let stickySideBarElem = document.getElementById("stickySideBar");
+  let stickyNavBar =  true ;
+  if(stickyNavBar) {
+    let headerElem = document.getElementById("profileHeader");
+    let headerHeight = headerElem.offsetHeight + 15;
+    stickySideBarElem.style.top = headerHeight + "px";
+  } else {
+    stickySideBarElem.style.top = "50px";
+  }
+</script>
+
+
+<script src="/js/readingTime.js"></script>
+
+
+
+  </div><footer>
+    
+ 
+ 
+<div class="container py-3" id="recent-posts">
+    
+    
+    <div class="h3 text-center text-secondary py-3">
+        Recent Posts
+    </div>
+    <div class="row justify-content-center">
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/reasoning/">
+                        <img src="/blogs/reasoning/Gemini_Generated_Image_LLM_Reasoning.png" class="card-img-top" alt="Cracking the Code of LLM Reasoning - From Patterns to Thought Chains">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/reasoning/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Cracking the Code of LLM Reasoning - From Patterns to Thought Chains">Cracking the Code of LLM …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p><h2 id="motivation">Motivation</h2>
+<p>Large Language Models (LLMs) are reshaping how we interact with technology—whether it&rsquo;s writing code, planning a trip, conducting web searches, or even solving high school math problems (to some extent). In many of these tasks, LLMs appear to <em>think</em>. But is that genuine …</p></p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">May 21, 2025</span>
+                    <a href="/blogs/reasoning/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/fastapi2/">
+                        <img src="/blogs/fastapi/fastAPI.webp" class="card-img-top" alt="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/fastapi2/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 2">Building Efficient ML …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p><p>In the <a href="../fastapi">previous blog</a>, I mentioned how I was able to make simple endpoints with FastAPI and how I was even able to use it to deploy a pretrained ML model. Moving forward, I will be discussing about how to make our FastAPI application more robust and efficient with some commonly used practices I found …</p></p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jul 13, 2024</span>
+                    <a href="/blogs/fastapi2/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6 pt-2">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <a href="/blogs/fastapi/">
+                        <img src="/blogs/fastapi/fastAPI.webp" class="card-img-top" alt="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1">
+                    </a>
+                </div>
+                
+                <div class="card-body bg-transparent p-3 shadow-sm">
+                    <a href="/blogs/fastapi/" class="primary-font card-title">
+                        <h5 class="card-title bg-transparent" title="Building Efficient ML APIs with FastAPI: A Comprehensive Guide - Part 1">Building Efficient ML …</h5>
+                    </a>
+                    <div class="card-text secondary-font">
+                        <p><h2 id="introduction-to-fastapi">Introduction to FastAPI</h2>
+<p>Today, I delved into FastAPI, a cutting-edge web framework designed for building APIs with Python. It piqued my interest because of its reputation for speed, ease of use, and robust integration with Python&rsquo;s type system and also cause I have been looking for some time …</p></p>
+                    </div>
+                </div>
+                <div class="mt-auto card-footer">
+                    <span class="float-start">Jul 12, 2024</span>
+                    <a href="/blogs/fastapi/" class="float-end btn btn-outline-info btn-sm">Read</a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
+<div class="text-center pt-2">
+    
+    <span class="px-1">
+        <a href="https://github.com/sarthak247" aria-label="github">
+            <svg xmlns="http://www.w3.org/2000/svg" width="2.7em" height="2.7em" viewBox="0 0 1792 1792">
+                <path
+                    d="M522 1352q-8 9-20-3-13-11-4-19 8-9 20 3 12 11 4 19zm-42-61q9 12 0 19-8 6-17-7t0-18q9-7 17 6zm-61-60q-5 7-13 2-10-5-7-12 3-5 13-2 10 5 7 12zm31 34q-6 7-16-3-9-11-2-16 6-6 16 3 9 11 2 16zm129 112q-4 12-19 6-17-4-13-15t19-7q16 5 13 16zm63 5q0 11-16 11-17 2-17-11 0-11 16-11 17-2 17 11zm58-10q2 10-14 14t-18-8 14-15q16-2 18 9zm964-956v960q0 119-84.5 203.5t-203.5 84.5h-224q-16 0-24.5-1t-19.5-5-16-14.5-5-27.5v-239q0-97-52-142 57-6 102.5-18t94-39 81-66.5 53-105 20.5-150.5q0-121-79-206 37-91-8-204-28-9-81 11t-92 44l-38 24q-93-26-192-26t-192 26q-16-11-42.5-27t-83.5-38.5-86-13.5q-44 113-7 204-79 85-79 206 0 85 20.5 150t52.5 105 80.5 67 94 39 102.5 18q-40 36-49 103-21 10-45 15t-57 5-65.5-21.5-55.5-62.5q-19-32-48.5-52t-49.5-24l-20-3q-21 0-29 4.5t-5 11.5 9 14 13 12l7 5q22 10 43.5 38t31.5 51l10 23q13 38 44 61.5t67 30 69.5 7 55.5-3.5l23-4q0 38 .5 103t.5 68q0 22-11 33.5t-22 13-33 1.5h-224q-119 0-203.5-84.5t-84.5-203.5v-960q0-119 84.5-203.5t203.5-84.5h960q119 0 203.5 84.5t84.5 203.5z" />
+
+                <metadata>
+                    <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:dc="http://purl.org/dc/elements/1.1/">
+                        <rdf:Description about="https://iconscout.com/legal#licenses"
+                            dc:title="Github, Online, Project, Hosting, Square"
+                            dc:description="Github, Online, Project, Hosting, Square" dc:publisher="Iconscout"
+                            dc:date="2016-12-14" dc:format="image/svg+xml" dc:language="en">
+                            <dc:creator>
+                                <rdf:Bag>
+                                    <rdf:li>Font Awesome</rdf:li>
+                                </rdf:Bag>
+                            </dc:creator>
+                        </rdf:Description>
+                    </rdf:RDF>
+                </metadata>
+            </svg>
+        </a>
+    </span>
+    
+
+    
+    <span class="px-1">
+        <a href="https://linkedin.com/in/sarthak247/" aria-label="linkedin">
+            <svg xmlns="http://www.w3.org/2000/svg" width='2.4em' height='2.4em' fill="#fff" aria-label="LinkedIn"
+                viewBox="0 0 512 512">
+                <rect width="512" height="512" fill="#0077b5" rx="15%" />
+                <circle cx="142" cy="138" r="37" />
+                <path stroke="#fff" stroke-width="66" d="M244 194v198M142 194v198" />
+                <path d="M276 282c0-20 13-40 36-40 24 0 33 18 33 45v105h66V279c0-61-32-89-76-89-34 0-51 19-59 32" />
+            </svg>
+        </a>
+    </span>
+    
+
+    
+    <a href="https://x.com/sarthak2407" aria-label="twitter">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48px" height="48px">
+            <path fill="#03a9f4"
+                d="M42,37c0,2.762-2.239,5-5,5H11c-2.762,0-5-2.238-5-5V11c0-2.762,2.238-5,5-5h26c2.761,0,5,2.238,5,5 V37z" />
+            <path fill="#fff"
+                d="M36,17.12c-0.882,0.391-1.999,0.758-3,0.88c1.018-0.604,2.633-1.862,3-3 c-0.951,0.559-2.671,1.156-3.793,1.372C31.311,15.422,30.033,15,28.617,15C25.897,15,24,17.305,24,20v2c-4,0-7.9-3.047-10.327-6 c-0.427,0.721-0.667,1.565-0.667,2.457c0,1.819,1.671,3.665,2.994,4.543c-0.807-0.025-2.335-0.641-3-1c0,0.016,0,0.036,0,0.057 c0,2.367,1.661,3.974,3.912,4.422C16.501,26.592,16,27,14.072,27c0.626,1.935,3.773,2.958,5.928,3c-1.686,1.307-4.692,2-7,2 c-0.399,0-0.615,0.022-1-0.023C14.178,33.357,17.22,34,20,34c9.057,0,14-6.918,14-13.37c0-0.212-0.007-0.922-0.018-1.13 C34.95,18.818,35.342,18.104,36,17.12" />
+        </svg>
+    </a>
+    
+
+    
+
+    
+</div><div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 text-center">
+            
+                <div class="pb-2">
+                    <a href="http://localhost:1313/" title="Sarthak Thakur">
+                        <img alt="Footer logo" src="./favicon.png"
+                            height="40px" width="40px">
+                    </a>
+                </div>
+            
+            &copy; 2025  All rights reserved
+            <div class="text-secondary">
+                Made with
+                <span class="text-danger">
+                    &#10084;
+                </span>
+                and
+                <a href="https://github.com/gurusabarish/hugo-profile" target="_blank"
+                    title="Designed and developed by gurusabarish">
+                    Hugo Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</footer><script src="/bootstrap-5/js/bootstrap.bundle.min.js"></script>
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+</script>
+
+
+    <script src="/js/search.js"></script>
+
+
+
+
+
+<!-- MathJax -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js" integrity="sha384-M5jmNxKC9EVnuqeMwRHvFuYUE8Hhp0TgBruj/GZRkYtiMrCRgH7yvv5KY+Owi7TW" crossorigin="anonymous"></script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['\\(','\\)']],
+        displayMath: [['$$','$$'], ['\[','\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+        TeX: { equationNumbers: { autoNumber: "AMS" },
+             extensions: ["AMSmath.js", "AMSsymbols.js"] }
+      }
+    });
+</script>
+
+
+
+
+
+
+
+
+  <section id="search-content" class="py-2">
+    <div class="container" id="search-results"></div>
+  </section>
+</body>
+
+</html>

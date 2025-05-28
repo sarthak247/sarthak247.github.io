@@ -6,8 +6,29 @@
     <description>Recent content in Categories on Sarthak Thakur</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 13 Jul 2024 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 21 May 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Large Language Models</title>
+      <link>http://localhost:1313/categories/large-language-models/</link>
+      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/large-language-models/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Reasoning</title>
+      <link>http://localhost:1313/categories/reasoning/</link>
+      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/reasoning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transformers</title>
+      <link>http://localhost:1313/categories/transformers/</link>
+      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/categories/transformers/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Deployment</title>
       <link>http://localhost:1313/categories/deployment/</link>
@@ -34,13 +55,6 @@
       <link>http://localhost:1313/categories/paper-explanation/</link>
       <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
       <guid>http://localhost:1313/categories/paper-explanation/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Transformers</title>
-      <link>http://localhost:1313/categories/transformers/</link>
-      <pubDate>Wed, 03 Jul 2024 00:00:00 +0000</pubDate>
-      <guid>http://localhost:1313/categories/transformers/</guid>
       <description></description>
     </item>
     <item>

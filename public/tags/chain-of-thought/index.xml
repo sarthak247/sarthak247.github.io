@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chain of Thought on Sarthak Thakur</title>
+    <link>http://localhost:1313/tags/chain-of-thought/</link>
+    <description>Recent content in Chain of Thought on Sarthak Thakur</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 21 May 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/tags/chain-of-thought/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cracking the Code of LLM Reasoning - From Patterns to Thought Chains</title>
+      <link>http://localhost:1313/blogs/reasoning/</link>
+      <pubDate>Wed, 21 May 2025 00:00:00 +0000</pubDate>
+      <guid>http://localhost:1313/blogs/reasoning/</guid>
+      <description>&lt;h2 id=&#34;motivation&#34;&gt;Motivation&lt;/h2&gt;&#xA;&lt;p&gt;Large Language Models (LLMs) are reshaping how we interact with technology—whether it&amp;rsquo;s writing code, planning a trip, conducting web searches, or even solving high school math problems (to some extent). In many of these tasks, LLMs appear to &lt;em&gt;think&lt;/em&gt;. But is that genuine reasoning&amp;hellip; or just high-quality guesswork?&lt;/p&gt;&#xA;&lt;p&gt;In this blog, I’ll explore what it really means for an LLM to &amp;ldquo;reason.&amp;rdquo; I’ll look at how reasoning is evaluated, the techniques used to improve it, and the current state of the art. More importantly, I’ll dive into the challenges we still face and where future innovation might lie.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
